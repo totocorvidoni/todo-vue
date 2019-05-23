@@ -1,15 +1,30 @@
-/* Coolors Exported Palette - coolors.co/45486d-d15a36-c6e572-607b7d-dfeade */
+// Colors
+$color1: rgb(69, 72, 109);
+$color1-dark: rgb(50, 54, 83);
+$color2: rgb(209, 90, 54);
+$color3: rgb(198, 229, 114);
+$color4: rgb(96, 123, 125);
+$color5: rgb(223, 234, 222);
 
-/* HSL */
-$color1: hsla(236%, 22%, 35%, 1);
-$color2: hsla(14%, 63%, 52%, 1);
-$color3: hsla(76%, 69%, 67%, 1);
-$color4: hsla(184%, 13%, 43%, 1);
-$color5: hsla(115%, 22%, 89%, 1);
+// Fonts
+$font-family: 'Nunito', Helvetica, Arial, sans-serif;
 
-/* RGB */
-$color1: rgba(69, 72, 109, 1);
-$color2: rgba(209, 90, 54, 1);
-$color3: rgba(198, 229, 114, 1);
-$color4: rgba(96, 123, 125, 1);
-$color5: rgba(223, 234, 222, 1);
+// Transition
+$quick-ease: all 100ms ease;
+
+// Transform
+
+$press: scale(0.95) translateY(5%);
+
+// Filters
+$little-light: brightness(1.1);
+$little-shadow: brightness(0.95);
+
+// Border-radius
+
+$little-radius: 0.25em;
+$regular-radius: 0.5em;
+
+// Padding
+
+$button: 0.25em 0.5em;
