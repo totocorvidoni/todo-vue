@@ -1,5 +1,5 @@
 // Colors
-$color1: rgb(69, 72, 109);
+$color1: rgb(67, 70, 101);
 $color1-dark: rgb(50, 54, 83);
 $color2: rgb(209, 90, 54);
 $color3: rgb(198, 229, 114);
@@ -11,6 +11,7 @@ $font-family: 'Nunito', Helvetica, Arial, sans-serif;
 
 // Transition
 $quick-ease: all 100ms ease;
+$regular-ease: all 300ms ease;
 
 // Transform
 
@@ -27,4 +28,4 @@ $regular-radius: 0.5em;
 
 // Padding
 
-$button: 0.25em 0.5em;
+$button-padding: 0.25em 0.5em;

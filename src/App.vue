@@ -43,4 +43,14 @@ body {
     filter: $little-shadow;
   }
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: $quick-ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

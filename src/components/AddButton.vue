@@ -16,7 +16,7 @@ export default {
 <style lang="scss">
 .add-button {
   display: flex;
-  padding: $button;
+  padding: $button-padding;
   background: $color5;
   color: $color1;
   border-radius: $little-radius;
