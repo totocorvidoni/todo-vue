@@ -113,7 +113,6 @@ export default {
     },
 
     removeTodo(id) {
-      console.log(id);
       this.$store.dispatch("removeTodo", id);
     },
 
