@@ -28,6 +28,7 @@ body {
 .button {
   border: none;
   transition: $quick-ease;
+  user-select: none;
 
   &:active,
   &:focus {

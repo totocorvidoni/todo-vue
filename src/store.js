@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import uuid from "uuid/v4";
-import { pull, pick, isEmpty } from "lodash";
+import { pick, isEmpty } from "lodash";
 
 Vue.use(Vuex);
 
@@ -32,12 +32,8 @@ export default new Vuex.Store({
         title: "be the dog"
       }
     },
-    activeProject: {
-      id: 0,
-      name: "Default Project",
-      todos: [0, 1, 3]
-    },
-    activeTodo: null,
+    activeProjectId: 0,
+    activeTodoId: null,
     mostRecentProject: null,
     mostRecentTodo: null
   },
@@ -52,7 +48,7 @@ export default new Vuex.Store({
       state.todos = { ...state.todos, [todo.id]: todo.data };
     },
     addTodoToProject(state, todoId) {
-      state.activeProject.todos.push(todoId);
+      state.projects[state.activeProjectId].todos.push(todoId);
     },
     removeProject(state, id) {
       delete state.projects[id];
@@ -61,13 +57,14 @@ export default new Vuex.Store({
       delete state.todos[id];
     },
     removeTodoFromProject(state, todoId) {
-      pull(state.activeProject.todos, todoId);
+      const project = state.projects[state.activeProjectId];
+      project.todos.splice(project.todos.indexOf(todoId), 1);
     },
     setActiveProject(state, id) {
-      state.activeProject = state.projects[id];
+      state.projects[state.activeProjectId] = state.projects[id];
     },
     setActiveTodo(state, id) {
-      state.activeTodo = state.todos[id];
+      state.activeTodoId = state.todos[id];
     },
     renameProject(state, payload) {
       state.projects[payload.projectId].name = payload.name;
@@ -88,7 +85,8 @@ export default new Vuex.Store({
       state.todos[payload.todoId].notes.push(payload.note);
     },
     removeTodoNote(state, payload) {
-      pull(state.todos[payload.todoId].notes, payload.note);
+      const todo = state.todos[payload.todoId];
+      todo.notes.splice(todo.notes.indexOf(payload.note), 1);
     },
     completeTodo(state, payload) {
       state.todos[payload.todoId].completed = true;
@@ -138,17 +136,20 @@ export default new Vuex.Store({
     },
 
     removeTodo({ commit }, id) {
-      commit('removeTodo', id);
-      commit('removeTodoFromProject', id)
+      commit("removeTodo", id);
+      commit("removeTodoFromProject", id);
     }
   },
 
   getters: {
-    activeTodos(state) {
-      return pick(state.todos, state.activeProject.todos);
+    activeProject(state) {
+      return state.projects[state.activeProjectId];
     },
-    noActiveTodos(state) {
-      return isEmpty(state.activeProject.todos);
+    activeTodos(state, { activeProject }) {
+      return pick(state.todos, activeProject.todos);
+    },
+    noActiveTodos(state, { activeProject }) {
+      return isEmpty(activeProject.todos);
     }
   }
 });

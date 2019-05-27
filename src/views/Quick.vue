@@ -121,10 +121,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["activeTodos", "noActiveTodos"]),
-    activeProject() {
-      return this.$store.state.activeProject;
-    }
+    ...mapGetters(["activeProject", "activeTodos", "noActiveTodos"])
   }
 };
 </script>
@@ -282,7 +279,6 @@ export default {
         font-size: 0.8em;
         font-weight: 700;
         padding: $button-padding;
-        user-select: none;
       }
 
       // TODO - get the form size exactly the same as the li elements.
