@@ -6,8 +6,8 @@
     <h1 class="title">THOU SHALL DO</h1>
     <p class="subtitle">I needed a larger title (I also needed a subtitle)</p>
     <div class="creators">
-      <add-button @addClick="onAddProjectClick">Add Project</add-button>
-      <add-button @addClick="onAddTodoClick">Add Todo</add-button>
+      <add-button @buttonClick="onProjectButtonClick">Add Project</add-button>
+      <add-button @buttonClick="onTodoButtonClick">Add Todo</add-button>
     </div>
     <main id="project">
       <div class="title-wrapper">
@@ -23,9 +23,8 @@
               v-model="newProject"
               maxlength="30"
               minlength="1"
-              placeholder="New Proyect"
+              placeholder="New Project"
               ref="newProject"
-              @keyup.enter="submitProject"
             >
             <input type="submit" name="submitName" value="Create" class="button">
           </form>
@@ -34,12 +33,26 @@
       </div>
       <div class="todos">
         <div class="no-todos" v-if="noActiveTodos">
-          <img src="@/assets/faded-checkmark.svg" alt>
+          <img src="@/assets/faded-checkmark.svg" alt="a checkmark">
           <p>There is nothing left To Do.</p>
         </div>
         <ul v-else>
-          <li v-for="todo in activeTodos" :key="todo.id">{{ todo.name }}</li>
+          <li v-for="todo in activeTodos" :key="todo.id" class="todo">
+            <h3 class="todo-title">{{ todo.title }}</h3>
+            <button class="button remove-todo" @click="removeTodo(todo.id)">X</button>
+          </li>
         </ul>
+        <form name="new-todo" class="new-todo" v-if="addingTodo" @submit.prevent="submitTodo">
+          <input
+            type="text"
+            v-model="newTodo"
+            maxlength="30"
+            minlength="1"
+            placeholder="New Todo"
+            ref="newTodo"
+          >
+          <input type="submit" name="submitName" value="Create" class="button">
+        </form>
       </div>
     </main>
     <router-link :to="{ name: 'full' }" class="button go-full">Full View</router-link>
@@ -58,24 +71,13 @@ export default {
   data() {
     return {
       addingProject: false,
-      newProject: ""
+      addingTodo: false,
+      newProject: "",
+      newTodo: ""
     };
   },
 
   methods: {
-    onAddProjectClick() {
-      this.addingProject = true;
-      this.$nextTick(function() {
-        setTimeout(() => {
-          this.$refs.newProject.focus();
-        }, 700);
-      });
-    },
-
-    onAddTodoClick() {
-      console.log("a click has happend on todo");
-    },
-
     async submitProject() {
       await this.$store.dispatch("addProject", {
         name: this.newProject
@@ -84,7 +86,37 @@ export default {
         "setActiveProject",
         this.$store.state.mostRecentProject
       );
+      this.newProject = "";
       this.addingProject = false;
+    },
+
+    async submitTodo() {
+      await this.$store.dispatch("addTodo", {
+        title: this.newTodo
+      });
+      this.newTodo = "";
+      this.addingTodo = false;
+    },
+
+    onProjectButtonClick() {
+      this.addingProject = true;
+      this.$nextTick(function() {
+        setTimeout(() => {
+          this.$refs.newProject.focus({ preventScroll: false });
+        }, 700);
+      });
+    },
+
+    onTodoButtonClick() {
+      this.addingTodo = true;
+      this.$nextTick(function() {
+        this.$refs.newTodo.focus({ preventScroll: false });
+      });
+    },
+
+    removeTodo(id) {
+      console.log(id);
+      this.$store.dispatch("removeTodo", id);
     }
   },
 
@@ -220,19 +252,65 @@ export default {
     .todos {
       background: $color5;
       color: $color1;
+      overflow-y: auto;
 
       ul {
         list-style-type: none;
         padding: 0.2em;
       }
 
-      li {
+      .todo {
+        display: flex;
         background: $color3;
+        border-radius: $little-radius;
         padding: 0.2em 0.5em;
+        text-transform: capitalize;
 
         &:not(:first-of-type) {
           margin-top: 2px;
         }
+      }
+
+      .todo-title {
+        flex-grow: 2;
+      }
+
+      .remove-todo {
+        background: $color2;
+        border-radius: 50%;
+        color: $color5;
+        font-size: 0.8em;
+        font-weight: 700;
+        padding: $button-padding;
+        user-select: none;
+      }
+
+      // TODO - get the form size exactly the same as the li elements.
+      .new-todo {
+        display: flex;
+        justify-content: space-between;
+        background: $color3;
+        margin: 0 0.2em;
+        padding: 0.2em 0.5em;
+      }
+
+      input[type="text"] {
+        background: none;
+        border: none;
+        color: $color1;
+        flex-grow: 2;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      input[type="submit"] {
+        background: $color1-dark;
+        border-radius: $little-radius;
+        color: $color5;
+        font-weight: 700;
+        padding: 0 0.5em;
       }
     }
   }

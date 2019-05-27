@@ -16,16 +16,20 @@ export default new Vuex.Store({
     },
     todos: {
       0: {
-        name: "feed the dog"
+        id: 0,
+        title: "feed the dog"
       },
       1: {
-        name: "play with the dog"
+        id: 1,
+        title: "play with the dog"
       },
       2: {
-        name: "eat with the dog"
+        id: 2,
+        title: "eat with the dog"
       },
       3: {
-        name: "be the dog"
+        id: 3,
+        title: "be the dog"
       }
     },
     activeProject: {
@@ -34,7 +38,8 @@ export default new Vuex.Store({
       todos: [0, 1, 3]
     },
     activeTodo: null,
-    mostRecentProject: null
+    mostRecentProject: null,
+    mostRecentTodo: null
   },
   mutations: {
     addProject(state, project) {
@@ -46,8 +51,8 @@ export default new Vuex.Store({
     addTodo(state, todo) {
       state.todos = { ...state.todos, [todo.id]: todo.data };
     },
-    addTodoToProject(state, payload) {
-      state.projects[payload.projectId].todos.push(payload.todoId);
+    addTodoToProject(state, todoId) {
+      state.activeProject.todos.push(todoId);
     },
     removeProject(state, id) {
       delete state.projects[id];
@@ -55,8 +60,8 @@ export default new Vuex.Store({
     removeTodo(state, id) {
       delete state.todos[id];
     },
-    removeTodoFromProject(state, payload) {
-      pull(state.projects[payload.projectId].todos, payload.todoId);
+    removeTodoFromProject(state, todoId) {
+      pull(state.activeProject.todos, todoId);
     },
     setActiveProject(state, id) {
       state.activeProject = state.projects[id];
@@ -112,8 +117,32 @@ export default new Vuex.Store({
       };
       commit("addProject", project);
       commit("setMostRecentProject", project.id);
+    },
+
+    addTodo({ commit }, payload) {
+      const id = uuid();
+      const todo = {
+        id: id,
+        data: {
+          id: id,
+          title: payload.title || "Unnamed Todo",
+          description: payload.description || "No description.",
+          dueDate: payload.dueDate || null,
+          priority: payload.priority || 0,
+          notes: payload.notes || [],
+          completed: payload.completed || false
+        }
+      };
+      commit("addTodo", todo);
+      commit("addTodoToProject", todo.id);
+    },
+
+    removeTodo({ commit }, id) {
+      commit('removeTodo', id);
+      commit('removeTodoFromProject', id)
     }
   },
+
   getters: {
     activeTodos(state) {
       return pick(state.todos, state.activeProject.todos);
