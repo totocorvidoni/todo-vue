@@ -6,11 +6,12 @@
     <h1 class="title">THOU SHALL DO</h1>
     <p class="subtitle">I needed a larger title (I also needed a subtitle)</p>
     <div class="creators">
-      <add-button @buttonClick="onProjectButtonClick">Add Project</add-button>
-      <add-button @buttonClick="onTodoButtonClick">Add Todo</add-button>
+      <add-button @buttonClick="onNewProjectButtonClick">Add Project</add-button>
+      <add-button @buttonClick="onNewTodoButtonClick">Add Todo</add-button>
     </div>
     <main id="project">
       <div class="title-wrapper">
+        <!-- TODO - add Menu to pick Project -->
         <transition name="fade" mode="out-in">
           <form
             name="new-project"
@@ -32,13 +33,26 @@
         </transition>
       </div>
       <div class="todos">
+        <!-- TODO - noActiveTodos doesn't go away with the form for new todos -->
         <div class="no-todos" v-if="noActiveTodos">
           <img src="@/assets/faded-checkmark.svg" alt="a checkmark">
           <p>There is nothing left To Do.</p>
         </div>
         <ul v-else>
           <li v-for="todo in activeTodos" :key="todo.id" class="todo">
-            <h3 class="todo-title">{{ todo.title }}</h3>
+            <h3
+              class="todo-title button"
+              @click="onTodoClick(todo.id)"
+              :class="{ completed: todo.completed }"
+            >{{ todo.title }}</h3>
+            <transition name="fade">
+              <img
+                class="done-badge"
+                src="@/assets/done.png"
+                alt="done checkmark"
+                v-if="todo.completed"
+              >
+            </transition>
             <button class="button remove-todo" @click="removeTodo(todo.id)">X</button>
           </li>
         </ul>
@@ -98,7 +112,12 @@ export default {
       this.addingTodo = false;
     },
 
-    onProjectButtonClick() {
+    removeTodo(id) {
+      console.log(id);
+      this.$store.dispatch("removeTodo", id);
+    },
+
+    onNewProjectButtonClick() {
       this.addingProject = true;
       this.$nextTick(function() {
         setTimeout(() => {
@@ -107,16 +126,15 @@ export default {
       });
     },
 
-    onTodoButtonClick() {
+    onNewTodoButtonClick() {
       this.addingTodo = true;
       this.$nextTick(function() {
         this.$refs.newTodo.focus({ preventScroll: false });
       });
     },
 
-    removeTodo(id) {
-      console.log(id);
-      this.$store.dispatch("removeTodo", id);
+    onTodoClick(id) {
+      this.$store.commit("toggleTodo", id);
     }
   },
 
@@ -133,7 +151,7 @@ export default {
   justify-items: center;
   grid-template-rows: auto auto auto auto minmax(240px, 1fr) auto;
   color: $color5;
-  padding: 4rem 0 2rem;
+  padding: 2rem 0 2rem;
   height: 100%;
 
   .logo {
@@ -157,6 +175,7 @@ export default {
     font-weight: 300;
     font-style: italic;
     margin-top: -1rem;
+    margin-bottom: 2rem;
   }
 
   .creators {
@@ -270,12 +289,23 @@ export default {
 
       .todo-title {
         flex-grow: 2;
+
+        &:hover {
+          transform: translateX(7px);
+        }
+      }
+
+      .done-badge {
+        height: 20px;
+        width: auto;
+        margin-right: 0.2em;
+        user-select: none;
       }
 
       .remove-todo {
         background: $color2;
         border-radius: 50%;
-        color: $color5;
+        color: #fff;
         font-size: 0.8em;
         font-weight: 700;
         padding: $button-padding;
@@ -308,6 +338,10 @@ export default {
         font-weight: 700;
         padding: 0 0.5em;
       }
+    }
+
+    .completed {
+      color: $color5;
     }
   }
 

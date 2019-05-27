@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="33.866669mm"
+   height="33.866669mm"
+   viewBox="0 0 33.866669 33.866669"
+   version="1.1"
+   id="svg960"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="done.svg"
+   inkscape:export-filename="/home/toto/web/odin-project/javascript/todo-vue/src/assets/done.png"
+   inkscape:export-xdpi="24"
+   inkscape:export-ydpi="24">
+  <defs
+     id="defs954" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="23.750703"
+     inkscape:cy="47.001941"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g906"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1007"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata957">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-109.31071,-32.870238)">
+    <g
+       id="g906"
+       transform="matrix(0.94452538,0,0,0.94452538,109.24389,32.870238)">
+      <circle
+         r="17.927876"
+         cy="17.927876"
+         cx="17.927876"
+         id="path829"
+         style="opacity:1;fill:#ffc107;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.5293664;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+      <path
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:0.5293664;stroke-miterlimit:4;stroke-dasharray:none"
+         inkscape:connector-curvature="0"
+         id="path815"
+         d="M 27.10256,7.4077182 14.605722,20.216837 8.7520863,14.667735 4.6392568,18.782775 14.605722,28.448032 31.216494,11.521653 Z"
+         inkscape:export-xdpi="24"
+         inkscape:export-ydpi="24" />
+    </g>
+  </g>
+</svg>

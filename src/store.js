@@ -17,19 +17,23 @@ export default new Vuex.Store({
     todos: {
       0: {
         id: 0,
-        title: "feed the dog"
+        title: "feed the dog",
+        completed: false
       },
       1: {
         id: 1,
-        title: "play with the dog"
+        title: "play with the dog",
+        completed: false
       },
       2: {
         id: 2,
-        title: "eat with the dog"
+        title: "eat with the dog",
+        completed: false
       },
       3: {
         id: 3,
-        title: "be the dog"
+        title: "be the dog",
+        completed: false
       }
     },
     activeProjectId: 0,
@@ -44,64 +48,82 @@ export default new Vuex.Store({
         [project.id]: project.data
       };
     },
+
     addTodo(state, todo) {
       state.todos = { ...state.todos, [todo.id]: todo.data };
     },
+
     addTodoToProject(state, todoId) {
       state.projects[state.activeProjectId].todos.push(todoId);
     },
+
     removeProject(state, id) {
       delete state.projects[id];
     },
+
     removeTodo(state, id) {
       delete state.todos[id];
     },
+
     removeTodoFromProject(state, todoId) {
       const project = state.projects[state.activeProjectId];
       project.todos.splice(project.todos.indexOf(todoId), 1);
     },
+
     setActiveProject(state, id) {
       state.projects[state.activeProjectId] = state.projects[id];
     },
+
     setActiveTodo(state, id) {
       state.activeTodoId = state.todos[id];
     },
+
     renameProject(state, payload) {
       state.projects[payload.projectId].name = payload.name;
     },
+
     renameTodo(state, payload) {
       state.projects[payload.todoId].name = payload.name;
     },
+
     changeTodoDescription(state, payload) {
       state.todos[payload.todoId].description = payload.description;
     },
+
     changeTodoDueDate(state, payload) {
       state.todos[payload.todoId].dueDate = payload.DueDate;
     },
+
     changeTodoPriority(state, payload) {
       state.todos[payload.todoId].priority = payload.priority;
     },
+
     addTodoNote(state, payload) {
       state.todos[payload.todoId].notes.push(payload.note);
     },
+
     removeTodoNote(state, payload) {
       const todo = state.todos[payload.todoId];
       todo.notes.splice(todo.notes.indexOf(payload.note), 1);
     },
+
     completeTodo(state, payload) {
       state.todos[payload.todoId].completed = true;
     },
+
     incompleteTodo(state, payload) {
       state.todos[payload.todoId].completed = false;
     },
-    toggleTodo(state, payload) {
-      state.todos[payload.todoId].completed = !state.todos[payload.todoId]
-        .completed;
+
+    toggleTodo(state, id) {
+      state.todos[id].completed = !state.todos[id].completed;
     },
+
     setMostRecentProject(state, id) {
       state.mostRecentProject = id;
     }
   },
+
   actions: {
     addProject({ commit }, payload) {
       const id = uuid();
@@ -145,9 +167,11 @@ export default new Vuex.Store({
     activeProject(state) {
       return state.projects[state.activeProjectId];
     },
+
     activeTodos(state, { activeProject }) {
       return pick(state.todos, activeProject.todos);
     },
+
     noActiveTodos(state, { activeProject }) {
       return isEmpty(activeProject.todos);
     }
