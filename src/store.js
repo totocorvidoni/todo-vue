@@ -83,11 +83,11 @@ export default new Vuex.Store({
     },
 
     removeProject(state, id) {
-      delete state.projects[id];
+      Vue.delete(state.projects, id);
     },
 
     removeTodo(state, id) {
-      delete state.todos[id];
+      Vue.delete(state.todos, id);
     },
 
     removeTodoFromProject(state, todoId) {
