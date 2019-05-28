@@ -10,36 +10,14 @@
       <add-button @buttonClick="onNewTodoButtonClick">Add Todo</add-button>
     </div>
     <main id="project">
-      <div class="title-wrapper">
-        <!-- TODO - add Menu to pick Project -->
-        <transition name="fade" mode="out-in">
-          <form
-            name="new-project"
-            class="new-project"
-            v-if="addingProject"
-            @submit.prevent="submitProject"
-          >
-            <input
-              type="text"
-              v-model="newProject"
-              maxlength="30"
-              minlength="1"
-              placeholder="New Project"
-              ref="newProject"
-            >
-            <input type="submit" name="submitName" value="Create" class="button">
-          </form>
-          <h2 v-else>{{ activeProject.name }}</h2>
-        </transition>
-      </div>
       <div class="todos">
         <!-- TODO - noActiveTodos doesn't go away with the form for new todos -->
-        <div class="no-todos" v-if="noActiveTodos">
+        <div class="no-todos" v-if="noTodos">
           <img src="@/assets/faded-checkmark.svg" alt="a checkmark">
           <p>There is nothing left To Do.</p>
         </div>
         <ul v-else>
-          <li v-for="todo in activeTodos" :key="todo.id" class="todo">
+          <li v-for="todo in todos" :key="todo.id" class="todo">
             <h3
               class="todo-title button"
               @click="onTodoClick(todo.id)"
@@ -74,7 +52,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { pick, isEmpty } from "lodash";
 import AddButton from "@/components/AddButton.vue";
 
 export default {
@@ -92,18 +70,6 @@ export default {
   },
 
   methods: {
-    async submitProject() {
-      await this.$store.dispatch("addProject", {
-        name: this.newProject
-      });
-      this.$store.commit(
-        "setActiveProject",
-        this.$store.state.mostRecentProject
-      );
-      this.newProject = "";
-      this.addingProject = false;
-    },
-
     async submitTodo() {
       await this.$store.dispatch("addTodo", {
         title: this.newTodo
@@ -114,15 +80,6 @@ export default {
 
     removeTodo(id) {
       this.$store.dispatch("removeTodo", id);
-    },
-
-    onNewProjectButtonClick() {
-      this.addingProject = true;
-      this.$nextTick(function() {
-        setTimeout(() => {
-          this.$refs.newProject.focus({ preventScroll: false });
-        }, 700);
-      });
     },
 
     onNewTodoButtonClick() {
@@ -138,7 +95,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["activeProject", "activeTodos", "noActiveTodos"])
+    todos() {
+      const ids = this.$store.state.defaultProject.todos;
+      return pick(this.$store.state.todos, ids);
+    },
+
+    noTodos() {
+      return isEmpty(this.$store.state.defaultProject.todos);
+    }
   }
 };
 </script>
