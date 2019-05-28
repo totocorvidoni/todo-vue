@@ -1,6 +1,7 @@
 <template>
-  <div id="project-list">
+  <div id="project-list" class="above-left">
     <h1 class="title">Projects</h1>
+    <button class="add-project button" @click="onAddProjectClick">+</button>
     <ul>
       <li
         v-for="project in projects"
@@ -26,6 +27,9 @@ export default {
         return this.activeProject.id == id;
       }
     },
+
+    onAddProjectClick() {},
+
     onProjectClick(id) {
       this.$store.dispatch("setActiveProject", id);
     },
@@ -47,10 +51,6 @@ export default {
 <style lang="scss">
 #project-list {
   background: $color1;
-  border-right: 2px solid $color5;
-  border-top-right-radius: $regular-radius;
-  border-bottom-right-radius: $regular-radius;
-  box-shadow: 15px 0px 10px -5px rgba($color: #000000, $alpha: 0.2);
 
   .title {
     background: $color1-dark;
@@ -61,10 +61,22 @@ export default {
     text-align: center;
   }
 
+  .add-project {
+    display: block;
+    background: $color1-dark;
+    border-radius: $little-radius;
+    color: $color5;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1em;
+    margin: 1rem auto 0;
+    padding: 0.1em 0.3em;
+  }
+
   ul {
     background: $color1-dark;
     border-radius: $regular-radius;
-    margin: 1em;
+    margin: 1rem;
     padding: 1em;
   }
 

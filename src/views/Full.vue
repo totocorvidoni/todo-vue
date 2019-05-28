@@ -41,6 +41,9 @@ export default {
   grid-template-columns: 20% 40% 40%;
   background: $color5;
   border: 0.5rem solid $color1;
+  border-left: none;
   border-radius: $regular-radius;
+  color: $color1;
+  height: 100%;
 }
 </style>
