@@ -25,6 +25,10 @@ body {
 
 // globals
 
+ul {
+  list-style-type: none;
+}
+
 .button {
   border: none;
   transition: $quick-ease;
@@ -43,6 +47,14 @@ body {
     transform: $press;
     filter: $little-shadow;
   }
+}
+
+.remove {
+  background: $color2;
+  color: #fff;
+  font-size: 0.8em;
+  font-weight: 700;
+  padding: $button-padding;
 }
 
 .fade-enter-active,

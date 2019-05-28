@@ -48,12 +48,12 @@
             <transition name="fade">
               <img
                 class="done-badge"
-                src="@/assets/done.png"
+                src="@/assets/done-green.png"
                 alt="done checkmark"
                 v-if="todo.completed"
               >
             </transition>
-            <button class="button remove-todo" @click="removeTodo(todo.id)">X</button>
+            <button class="button remove" @click="removeTodo(todo.id)">X</button>
           </li>
         </ul>
         <form name="new-todo" class="new-todo" v-if="addingTodo" @submit.prevent="submitTodo">
@@ -288,6 +288,7 @@ export default {
 
       .todo-title {
         flex-grow: 2;
+        font-weight: 400;
 
         &:hover {
           transform: translateX(7px);
@@ -301,13 +302,8 @@ export default {
         user-select: none;
       }
 
-      .remove-todo {
-        background: $color2;
+      .remove {
         border-radius: 50%;
-        color: #fff;
-        font-size: 0.8em;
-        font-weight: 700;
-        padding: $button-padding;
       }
 
       // TODO - get the form size exactly the same as the li elements.
