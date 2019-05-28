@@ -8,8 +8,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     defaultProject: {
-        id: 0,
-        name: "Default Project",
+      id: 0,
+      name: "Default Project",
       todos: []
     },
     projects: {
@@ -79,7 +79,11 @@ export default new Vuex.Store({
     },
 
     addTodoToProject(state, todoId) {
-      state.projects[state.activeProjectId].todos.push(todoId);
+      if (state.activeProjectId) {
+        state.projects[state.activeProjectId].todos.push(todoId);
+      } else {
+        state.defaultProject.todos.push(todoId);
+      }
     },
 
     removeProject(state, id) {
@@ -96,11 +100,19 @@ export default new Vuex.Store({
     },
 
     setActiveProject(state, id) {
-      state.projects[state.activeProjectId] = state.projects[id];
+      state.activeProjectId = id;
+    },
+
+    removeActiveProject(state) {
+      state.activeProjectId = null;
     },
 
     setActiveTodo(state, id) {
-      state.activeTodoId = state.todos[id];
+      state.activeTodoId = id;
+    },
+
+    removeActiveTodo(state) {
+      state.activeTodoId = null;
     },
 
     renameProject(state, payload) {
@@ -182,9 +194,24 @@ export default new Vuex.Store({
       commit("addTodoToProject", todo.id);
     },
 
-    removeTodo({ commit }, id) {
+    removeTodo({ commit, state }, id) {
       commit("removeTodo", id);
       commit("removeTodoFromProject", id);
+      if (state.activeTodoId == id) {
+        commit("removeActiveTodo");
+      }
+    },
+
+    removeProject({ commit, state }, id) {
+      commit("removeProject", id);
+      if (state.activeProjectId == id) {
+        commit("removeActiveProject", null);
+      }
+    },
+
+    setActiveProject({ commit }, id) {
+      commit("setActiveProject", id);
+      commit("setActiveTodo", null);
     }
   },
 
@@ -194,11 +221,11 @@ export default new Vuex.Store({
     },
 
     activeTodos(state, { activeProject }) {
-      return pick(state.todos, activeProject.todos);
+      if (activeProject) return pick(state.todos, activeProject.todos);
     },
 
     noActiveTodos(state, { activeProject }) {
-      return isEmpty(activeProject.todos);
+      if (activeProject) return isEmpty(activeProject.todos);
     }
   }
 });
