@@ -7,10 +7,35 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    projects: {
-      0: {
+    defaultProject: {
         id: 0,
         name: "Default Project",
+      todos: []
+    },
+    projects: {
+      1: {
+        id: 1,
+        name: "A Project whose name is extremely long so I can test ellipsis",
+        todos: [0, 1, 3]
+      },
+      2: {
+        id: 2,
+        name: "Of Dog and Men",
+        todos: [0, 2, 3]
+      },
+      3: {
+        id: 3,
+        name: "Canis Lupus",
+        todos: [0, 1, 3]
+      },
+      4: {
+        id: 4,
+        name: "Howling at the Moon",
+        todos: [0, 1, 3]
+      },
+      5: {
+        id: 5,
+        name: "Gipsy Curses",
         todos: [0, 1, 3]
       }
     },
