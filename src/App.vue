@@ -57,6 +57,14 @@ ul {
   padding: $button-padding;
 }
 
+// Gives the impresion container is above and light comes from the left;
+.above-left {
+  border-right: 2px solid $color5;
+  border-top-right-radius: $regular-radius;
+  border-bottom-right-radius: $regular-radius;
+  box-shadow: 15px 0px 10px -5px rgba($color: #000000, $alpha: 0.2);
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: $quick-ease;
