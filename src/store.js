@@ -43,6 +43,11 @@ export default new Vuex.Store({
       0: {
         id: 0,
         title: "feed the dog",
+        description:
+          "Newton is a friendly dog who likes to eat. Feeding him is my job.",
+        dueDate: new Date(2019, 6, 15, 22, 30),
+        notes: "We are out of food...",
+        priority: 5,
         completed: false
       },
       1: {
@@ -211,7 +216,7 @@ export default new Vuex.Store({
 
     setActiveProject({ commit }, id) {
       commit("setActiveProject", id);
-      commit("setActiveTodo", null);
+      commit("removeActiveTodo");
     }
   },
 
