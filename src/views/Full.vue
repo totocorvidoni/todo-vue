@@ -44,6 +44,6 @@ export default {
   border-left: none;
   border-radius: $regular-radius;
   color: $color1;
-  height: 100%;
+  min-height: 100%;
 }
 </style>

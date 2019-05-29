@@ -13,8 +13,13 @@
   box-sizing: border-box;
 }
 
+html,
 body {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+}
+
+body {
   background: $color1;
 }
 
@@ -50,7 +55,7 @@ ul {
 }
 
 .remove {
-  background: $color2;
+  background: $color-bad;
   color: #fff;
   font-size: 0.8em;
   font-weight: 700;
