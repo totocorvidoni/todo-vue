@@ -1,8 +1,10 @@
 <template>
   <div id="full-view">
     <project-list/>
-    <project-details/>
-    <todo-details/>
+    <project-details v-if="activeProject"/>
+    <div v-else>No projects here</div>
+    <todo-details v-if="activeTodo"/>
+    <div v-else>No todos here</div>
   </div>
 </template>
 
@@ -24,12 +26,12 @@ export default {
 
   computed: {
     ...mapGetters(["activeProject", "activeTodos", "noActiveTodos"]),
-    projects() {
-      return this.$store.state.projects;
+    activeProject() {
+      return this.$store.state.activeProjectId;
     },
 
     activeTodo() {
-      return this.$store.state.activeTodo;
+      return this.$store.state.activeTodoId;
     }
   }
 };

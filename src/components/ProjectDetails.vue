@@ -1,5 +1,5 @@
 <template>
-  <div id="project-details" class="above-left" v-if="activeProject">
+  <div id="project-details" class="above-left">
     <h1 class="title">{{ activeProject.name }}</h1>
     <ul class="todos">
       <li class="todo" v-for="todo in activeTodos" :key="todo.id" @click="onTodoClick(todo.id)">
@@ -8,7 +8,6 @@
       </li>
     </ul>
   </div>
-  <div v-else>No Active Project</div>
 </template>
 
 <script>

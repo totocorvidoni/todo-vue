@@ -16,57 +16,63 @@ export default new Vuex.Store({
       1: {
         id: 1,
         name: "A Project whose name is extremely long so I can test ellipsis",
-        todos: [0, 1, 3]
+        todos: [1, 2, 4]
       },
       2: {
         id: 2,
         name: "Of Dog and Men",
-        todos: [0, 2, 3]
+        todos: [1, 3, 4]
       },
       3: {
         id: 3,
         name: "Canis Lupus",
-        todos: [0, 1, 3]
+        todos: [1, 2, 4]
       },
       4: {
         id: 4,
         name: "Howling at the Moon",
-        todos: [0, 1, 3]
+        todos: [1, 2, 4]
       },
       5: {
         id: 5,
         name: "Gipsy Curses",
-        todos: [0, 1, 3]
+        todos: [1, 2, 4]
       }
     },
     todos: {
-      0: {
-        id: 0,
-        title: "feed the dog",
-        description:
-          "Newton is a friendly dog who likes to eat. Feeding him is my job.",
-        dueDate: new Date(2019, 6, 15, 22, 30),
-        notes: "We are out of food...",
-        priority: 5,
-        completed: false
-      },
       1: {
         id: 1,
-        title: "play with the dog",
+        title: "feed the dog",
+        description:
+          "Newton is a friendly dog who likes to eat. Feeding it is my job.",
+        dueDate: new Date(2019, 4, 30, 16, 0),
+        notes: [
+          "We are out of food.",
+          "The store was closed.",
+          "Must research if cookie based diets are healthy for dogs.",
+          "Day 15: we are running out of cookies.",
+          "Day 16: Newton has ran out of patience..."
+        ],
+        priority: 3,
         completed: false
       },
       2: {
         id: 2,
-        title: "eat with the dog",
+        title: "play with the dog",
         completed: false
       },
       3: {
         id: 3,
+        title: "eat with the dog",
+        completed: false
+      },
+      4: {
+        id: 4,
         title: "be the dog",
         completed: false
       }
     },
-    activeProjectId: 0,
+    activeProjectId: null,
     activeTodoId: null,
     mostRecentProject: null,
     mostRecentTodo: null
@@ -222,15 +228,52 @@ export default new Vuex.Store({
 
   getters: {
     activeProject(state) {
-      return state.projects[state.activeProjectId];
+      try {
+        return state.projects[state.activeProjectId];
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    activeTodo(state) {
+      try {
+        return state.todos[state.activeTodoId];
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     activeTodos(state, { activeProject }) {
-      if (activeProject) return pick(state.todos, activeProject.todos);
+      try {
+        return pick(state.todos, activeProject.todos);
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     noActiveTodos(state, { activeProject }) {
-      if (activeProject) return isEmpty(activeProject.todos);
+      try {
+        return isEmpty(activeProject.todos);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    priorityText(state, { activeTodo }) {
+      try {
+        switch (activeTodo.priority) {
+          case 1:
+            return "Low Priority";
+          case 2:
+            return "High Priority";
+          case 3:
+            return "Very High Priority";
+          default:
+            return "No Priority";
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 });
