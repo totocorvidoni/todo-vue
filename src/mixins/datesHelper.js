@@ -8,7 +8,7 @@ import {
 export default {
   methods: {
     dueDate(date) {
-      return format(date, "dddd do of MMMM [at] HH:mm");
+      return format(date, "dddd Do of MMMM [at] HH:mm");
     },
 
     isDue(date) {
