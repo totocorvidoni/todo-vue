@@ -62,6 +62,7 @@ export default {
   place-items: center;
   align-content: start;
   padding: 1em;
+  overflow-y: auto;
 
   .title {
     color: $color5;

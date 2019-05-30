@@ -35,6 +35,7 @@ export default {
   border-color: $color1;
   color: $color1;
   padding: 0 1.5rem;
+  overflow-y: auto;
 
   .title {
     justify-self: center;

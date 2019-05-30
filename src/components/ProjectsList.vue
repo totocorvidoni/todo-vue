@@ -51,6 +51,7 @@ export default {
 <style lang="scss">
 #project-list {
   background: $color1;
+  overflow-y: auto;
 
   .title {
     background: $color1-dark;
