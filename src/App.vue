@@ -56,6 +56,7 @@ ul {
 
 .remove {
   background: $color-bad;
+  border: none;
   color: #fff;
   font-size: 0.8em;
   font-weight: 700;
