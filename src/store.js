@@ -10,7 +10,7 @@ export default new Vuex.Store({
     defaultProject: {
       id: 0,
       name: "Default Project",
-      todos: []
+      todos: [1, 2, 4]
     },
     projects: {
       1: {
@@ -108,6 +108,13 @@ export default new Vuex.Store({
     removeTodoFromProject(state, todoId) {
       const project = state.projects[state.activeProjectId];
       project.todos.splice(project.todos.indexOf(todoId), 1);
+    },
+
+    removeTodoFromDefaultProject(state, todoId) {
+      state.defaultProject.todos.splice(
+        state.defaultProject.todos.indexOf(todoId),
+        1
+      );
     },
 
     setActiveProject(state, id) {
