@@ -1,7 +1,7 @@
 <template>
   <div id="project-list" class="above-left">
     <h1 class="title">Projects</h1>
-    <button class="add-project button" @click="addingProject = true" v-if="!addingProject">+</button>
+    <button class="add-project button" @click="onAddProjectClick" v-if="!addingProject">+</button>
     <form v-else @submit.prevent="onNewProjectSubmit">
       <input
         class="add-project new-project"
@@ -44,8 +44,14 @@ export default {
       }
     },
 
+    onAddProjectClick() {
+      this.addingProject = true;
+      this.$nextTick(() => {
+        this.$refs.newProjectName.focus();
+      });
+    },
+
     onNewProjectSubmit() {
-      // TODO - make the form autofucs on display.
       if (this.newProjectName) {
         this.$store.dispatch("addProject", { name: this.newProjectName });
         this.newProjectName = "";
