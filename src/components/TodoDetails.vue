@@ -302,15 +302,15 @@ export default {
 
     textarea {
       background: $color1-light;
-      border: 2px solid transparent;
+      border: none;
       border-radius: $little-radius;
       color: $color5;
-      padding: 0 0.5em;
+      padding: 0.5em 1em;
       transition: $quick-ease;
 
       &:focus {
         outline: none;
-        border-left: 2px solid $color5;
+        box-shadow: $input-border;
       }
     }
 

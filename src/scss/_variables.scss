@@ -38,3 +38,10 @@ $regular-radius: 0.5em;
 // Padding
 
 $button-padding: 0.25em 0.5em;
+
+// Box-shadow
+
+$input-border: inset 10px 0px 0px -5px rgba(
+    $color: $color5,
+    $alpha: 1,
+  );
