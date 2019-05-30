@@ -7,11 +7,27 @@
     <p class="description">{{ activeTodo.description }}</p>
     <button class="completed button" @click="onCompleteClick">{{ completeButtonText }}</button>
     <transition name="fade">
-      <div class="due-date" v-if="!this.activeTodo.completed">
+      <div class="due-date-wrapper" v-if="!this.activeTodo.completed">
         <h2 v-if="isDue(date)">Has been due for</h2>
         <h2 v-else>Due in</h2>
         <p class="time-left" :class="howSoon(date)">{{ timeLeft(date) }}</p>
-        <p class="due-date">{{ dueDate(date) }}</p>
+        <div v-if="!pickingDate" class="due-date">
+          <p>{{ dueDate(date) }}</p>
+          <button class="button edit-date" title="Change Due Date" @click="pickingDate = true">
+            <img src="@/assets/edit.png" alt>
+          </button>
+        </div>
+        <div v-else class="date-picker">
+          <date-picker
+            class="date-picker"
+            v-model="newDueDate"
+            type="datetime"
+            lang="en"
+            format="DD/MM/YYYY - HH:mm"
+            :time-picker-options="{ start: '00:00', step: '00:30', end: '23:30' }"
+          />
+          <button class="button date-confirm" @click="onNewDateConfirm">Confirm</button>
+        </div>
       </div>
     </transition>
     <div class="notes-wrapper">
@@ -31,14 +47,18 @@
 </template>
 
 <script>
-import datesHelper from "@/mixins/datesHelper";
 import { mapGetters } from "vuex";
+import DatePicker from "vue2-datepicker";
+import datesHelper from "@/mixins/datesHelper";
 
 export default {
   name: "todo-details",
+  components: { DatePicker },
   mixins: [datesHelper],
   data() {
     return {
+      pickingDate: false,
+      newDueDate: "",
       newNote: ""
     };
   },
@@ -46,6 +66,15 @@ export default {
   methods: {
     onCompleteClick() {
       this.$store.commit("toggleTodo", this.activeTodo.id);
+    },
+
+    onNewDateConfirm() {
+      this.$store.commit("changeTodoDueDate", {
+        todoId: this.activeTodo.id,
+        dueDate: this.newDueDate
+      });
+      this.newDueDate = "";
+      this.pickingDate = false;
     },
 
     onNewNote(e) {
@@ -162,28 +191,36 @@ export default {
   }
 
   .completed {
-    background: $color-good;
-    color: #fff;
+    background: $color-action;
+    color: $color5;
     border-radius: $regular-radius;
     font-weight: 700;
     padding: 0.5em 1em;
   }
 
-  .due-date {
+  .due-date-wrapper {
     text-align: center;
 
     .time-left {
+      display: inline-block;
       border-radius: $little-radius;
       color: $color5;
       font-size: 1.5em;
       font-weight: 700;
       margin-bottom: 5px;
-      padding: $button-padding;
+      padding: 0.25em 1em;
       text-transform: capitalize;
     }
 
     .due-date {
+      display: flex;
       font-style: italic;
+      margin: 0 auto;
+      width: max-content;
+
+      p {
+        margin: auto 0;
+      }
     }
 
     .not-soon {
@@ -201,6 +238,25 @@ export default {
     .due {
       background: $color-very-bad;
     }
+  }
+
+  .edit-date {
+    margin-left: 0.5em;
+    background: none;
+
+    img {
+      width: 24px;
+      height: auto;
+    }
+  }
+
+  .date-confirm {
+    background: $color-action;
+    border-radius: $little-radius;
+    color: $color5;
+    font-weight: 700;
+    margin-left: 0.5em;
+    padding: $button-padding;
   }
 
   .notes {
@@ -254,7 +310,7 @@ export default {
 
       &:focus {
         outline: none;
-        border-bottom: 2px solid $color5;
+        border-left: 2px solid $color5;
       }
     }
 

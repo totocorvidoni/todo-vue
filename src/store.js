@@ -139,7 +139,7 @@ export default new Vuex.Store({
     },
 
     changeTodoDueDate(state, payload) {
-      state.todos[payload.todoId].dueDate = payload.DueDate;
+      state.todos[payload.todoId].dueDate = payload.dueDate;
     },
 
     changeTodoPriority(state, payload) {
