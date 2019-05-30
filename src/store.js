@@ -215,6 +215,7 @@ export default new Vuex.Store({
 
     removeProject({ commit, state }, id) {
       commit("removeProject", id);
+      // TODO - When project is removed its todos should be removed too.
       if (state.activeProjectId == id) {
         commit("removeActiveProject", null);
       }

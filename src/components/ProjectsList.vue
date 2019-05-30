@@ -1,7 +1,16 @@
 <template>
   <div id="project-list" class="above-left">
     <h1 class="title">Projects</h1>
-    <button class="add-project button" @click="onAddProjectClick">+</button>
+    <button class="add-project button" @click="addingProject = true" v-if="!addingProject">+</button>
+    <form v-else @submit.prevent="onNewProjectSubmit">
+      <input
+        class="add-project new-project"
+        type="text"
+        name="new-project"
+        v-model="newProjectName"
+        ref="newProjectName"
+      >
+    </form>
     <ul>
       <li
         v-for="project in projects"
@@ -21,6 +30,13 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "projects-list",
+  data() {
+    return {
+      addingProject: false,
+      newProjectName: ""
+    };
+  },
+
   methods: {
     isActive(id) {
       if (this.activeProject) {
@@ -28,7 +44,14 @@ export default {
       }
     },
 
-    onAddProjectClick() {},
+    onNewProjectSubmit() {
+      // TODO - make the form autofucs on display.
+      if (this.newProjectName) {
+        this.$store.dispatch("addProject", { name: this.newProjectName });
+        this.newProjectName = "";
+        this.addingProject = false;
+      }
+    },
 
     onProjectClick(id) {
       this.$store.dispatch("setActiveProject", id);
@@ -65,6 +88,7 @@ export default {
   .add-project {
     display: block;
     background: $color1-dark;
+    border: none;
     border-radius: $little-radius;
     color: $color5;
     font-size: 2.5rem;
@@ -72,6 +96,18 @@ export default {
     line-height: 1em;
     margin: 1rem auto 0;
     padding: 0.1em 0.3em;
+  }
+
+  .new-project {
+    font-size: 1.2em;
+    line-height: 2.5em;
+    padding: 0 1em;
+    transition: $quick-ease;
+
+    &:focus {
+      outline: none;
+      box-shadow: $input-border;
+    }
   }
 
   ul {
