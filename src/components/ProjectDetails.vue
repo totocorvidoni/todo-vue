@@ -4,7 +4,9 @@
     <ul class="todos">
       <li class="todo" v-for="todo in activeTodos" :key="todo.id" @click="onTodoClick(todo.id)">
         <h3 class="todo-title">{{ todo.title }}</h3>
-        <div class="info-wrapper">just something to see</div>
+        <div class="info-wrapper">
+          <p class="description">{{ todo.description }}</p>
+        </div>
       </li>
     </ul>
   </div>
@@ -49,8 +51,6 @@ export default {
 
   .todos {
     .todo {
-      padding: 0.5em 1em;
-      background: $color3;
       // border: 1px solid $color3;
       border-top-left-radius: $regular-radius;
       border-top-right-radius: $regular-radius;
@@ -58,13 +58,18 @@ export default {
     }
 
     .todo-title {
+      background: $color3;
       text-transform: capitalize;
-      padding-bottom: 0.5em;
+      padding: 0.5em 1em;
     }
 
     .info-wrapper {
       background: $color5;
       padding: 1em;
+    }
+
+    .description {
+      // text-align: center;
     }
   }
 }
