@@ -1,28 +1,19 @@
 <template>
   <div id="project-details" class="above-left">
-    <h1 class="title">{{ activeProject.name }}</h1>
+    <h1 class="title">Project: {{ activeProject.name }}</h1>
     <ul class="todos">
-      <li class="todo" v-for="todo in activeTodos" :key="todo.id" @click="onTodoClick(todo.id)">
-        <h3 class="todo-title">{{ todo.title }}</h3>
-        <div class="info-wrapper">
-          <p class="description">{{ todo.description }}</p>
-        </div>
-      </li>
+      <project-item v-for="todo in activeTodos" :key="todo.id" v-bind="todo"/>
     </ul>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import ProjectItem from "@/components/ProjectItem.vue";
 
 export default {
   name: "project-details",
-
-  methods: {
-    onTodoClick(id) {
-      this.$store.commit("setActiveTodo", id);
-    }
-  },
+  components: { ProjectItem },
 
   computed: {
     ...mapGetters(["activeProject", "activeTodos"])
@@ -50,27 +41,6 @@ export default {
   }
 
   .todos {
-    .todo {
-      // border: 1px solid $color3;
-      border-top-left-radius: $regular-radius;
-      border-top-right-radius: $regular-radius;
-      margin-bottom: 0.5em;
-    }
-
-    .todo-title {
-      background: $color3;
-      text-transform: capitalize;
-      padding: 0.5em 1em;
-    }
-
-    .info-wrapper {
-      background: $color5;
-      padding: 1em;
-    }
-
-    .description {
-      // text-align: center;
-    }
   }
 }
 </style>
