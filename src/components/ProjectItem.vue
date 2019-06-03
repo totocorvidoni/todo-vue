@@ -1,8 +1,16 @@
 <template>
   <li class="todo" :class="{ active: isActive }">
-    <div class="todo-header" @click="onTodoClick">
+    <div class="todo-header">
       <h3 class="todo-title">{{ title }}</h3>
       <p class="description">- {{ description }}</p>
+      <div class="button inspect" @click="onTodoClick" title="Todo Details">
+        <button class="button">
+          <img class="icon" src="@/assets/bars.png" alt>
+        </button>
+      </div>
+      <button class="button remove" title="Remove Todo" @click="onRemoveTodoClick">
+        <span class="button">X</span>
+      </button>
     </div>
     <div class="info-wrapper">
       <div class="due-date">
@@ -85,6 +93,8 @@ export default {
       this.$store.commit("setActiveTodo", this.id);
     },
 
+    onRemoveTodoClick() {},
+
     onCompletedClick() {
       this.$store.commit("toggleTodo", this.id);
     },
@@ -135,22 +145,20 @@ export default {
   .todo-header {
     display: grid;
     grid-auto-flow: column;
+    grid-template-columns: auto 1fr auto;
     justify-content: flex-start;
     background: $color1-light;
     border-top-left-radius: $little-radius;
     border-top-right-radius: $little-radius;
     color: $color5;
-    padding: 0.5em 1em;
-
-    &:hover {
-      cursor: pointer;
-    }
   }
 
   .todo-title {
     text-transform: capitalize;
     margin-right: 0.25em;
     flex-grow: 2;
+    padding: 0.5em;
+    padding-right: 0;
   }
 
   .description {
@@ -161,14 +169,33 @@ export default {
     text-overflow: ellipsis;
   }
 
+  .inspect {
+    display: flex;
+    align-content: center;
+    background: $color1;
+    margin-left: 0.5em;
+    padding: 0 0.5em;
+
+    .button {
+      background: none;
+      margin: auto 0;
+    }
+
+    .icon {
+      display: block;
+      width: 16px;
+    }
+  }
+
+  .remove {
+    border-top-right-radius: $little-radius;
+    padding: 1em;
+  }
+
   .info-wrapper {
     display: flex;
     justify-content: space-between;
     background: $color1-faded;
-
-    .button:active {
-      transform: none;
-    }
   }
 
   .priority,
@@ -283,6 +310,10 @@ export default {
 
   .very-high {
     background: $very-high-priority;
+  }
+
+  .button:active {
+    transform: none;
   }
 }
 </style>
