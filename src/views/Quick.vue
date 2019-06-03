@@ -73,6 +73,7 @@ export default {
 
   methods: {
     async submitTodo() {
+      // FIXME - this wont work if an active project is already selected.
       await this.$store.dispatch("addTodo", {
         title: this.newTodo
       });
@@ -266,6 +267,7 @@ export default {
         border: none;
         color: $color1;
         flex-grow: 2;
+        font-weight: 700;
 
         &:focus {
           outline: none;
