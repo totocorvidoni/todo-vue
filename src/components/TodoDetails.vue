@@ -1,8 +1,8 @@
 <template>
   <div id="todo-details">
-    <div class="title" :class="priorityClass">
+    <div class="title" :class="priorityClass(activeTodo.priority)">
       <h1>{{ activeTodo.title }}</h1>
-      <p class="priority">{{ priorityText }}</p>
+      <p class="priority">{{ priorityText(activeTodo.priority) }}</p>
     </div>
     <p class="description">{{ activeTodo.description }}</p>
     <button class="completed button" @click="onCompleteClick">{{ completeButtonText }}</button>
@@ -12,7 +12,7 @@
         <h2 v-else>Due in</h2>
         <p class="time-left" :class="howSoon(date)">{{ timeLeft(date) }}</p>
         <div v-if="!pickingDate" class="due-date">
-          <p>{{ dueDate(date) }}</p>
+          <p>{{ longDate(date) }}</p>
           <button class="button edit-date" title="Change Due Date" @click="pickingDate = true">
             <img src="@/assets/edit.png" alt>
           </button>
@@ -50,11 +50,12 @@
 import { mapGetters } from "vuex";
 import DatePicker from "vue2-datepicker";
 import datesHelper from "@/mixins/datesHelper";
+import priorityHelper from "@/mixins/priorityHelper";
 
 export default {
   name: "todo-details",
   components: { DatePicker },
-  mixins: [datesHelper],
+  mixins: [datesHelper, priorityHelper],
   data() {
     return {
       pickingDate: false,
@@ -93,27 +94,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["activeTodo", "priorityText"]),
+    ...mapGetters(["activeTodo"]),
 
     date() {
       return this.activeTodo.dueDate;
-    },
-
-    priorityClass() {
-      switch (this.activeTodo.priority) {
-        case 1:
-          return "low";
-          break;
-        case 2:
-          return "high";
-          break;
-        case 3:
-          return "very-high";
-          break;
-        default:
-          return "none";
-          break;
-      }
     },
 
     completeButtonText() {

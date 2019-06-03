@@ -265,23 +265,6 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
-    },
-
-    priorityText(state, { activeTodo }) {
-      try {
-        switch (activeTodo.priority) {
-          case 1:
-            return "Low Priority";
-          case 2:
-            return "High Priority";
-          case 3:
-            return "Very High Priority";
-          default:
-            return "No Priority";
-        }
-      } catch (error) {
-        console.log(error);
-      }
     }
   }
 });
