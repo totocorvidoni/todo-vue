@@ -59,16 +59,49 @@ export default new Vuex.Store({
       2: {
         id: 2,
         title: "play with the dog",
+        description:
+          "Newton is a friendly dog who likes to eat. Feeding it is my job.",
+        dueDate: new Date(2019, 4, 30, 16, 0),
+        notes: [
+          "We are out of food.",
+          "The store was closed.",
+          "Must research if cookie based diets are healthy for dogs.",
+          "Day 15: we are running out of cookies.",
+          "Day 16: Newton has ran out of patience..."
+        ],
+        priority: 3,
         completed: false
       },
       3: {
         id: 3,
         title: "eat with the dog",
+        description:
+          "Newton is a friendly dog who likes to eat. Feeding it is my job.",
+        dueDate: new Date(2019, 4, 30, 16, 0),
+        notes: [
+          "We are out of food.",
+          "The store was closed.",
+          "Must research if cookie based diets are healthy for dogs.",
+          "Day 15: we are running out of cookies.",
+          "Day 16: Newton has ran out of patience..."
+        ],
+        priority: 3,
         completed: false
       },
       4: {
         id: 4,
         title: "be the dog",
+        description:
+          "Newton is a friendly dog who likes to eat. Feeding it is my job.",
+        dueDate: new Date(2019, 4, 30, 16, 0),
+        notes: [
+          "We are out of food.",
+          "The store was closed.",
+          "Must research if cookie based diets are healthy for dogs.",
+          "Day 15: we are running out of cookies.",
+          "Day 16: Newton has ran out of patience..."
+        ],
+        priority: 3,
         completed: false
       }
     },

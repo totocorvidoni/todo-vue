@@ -175,7 +175,7 @@ export default {
   }
 
   .completed {
-    background: $color-action;
+    background: $color-not-done;
     color: $color5;
     border-radius: $regular-radius;
     font-weight: 700;
@@ -235,7 +235,7 @@ export default {
   }
 
   .date-confirm {
-    background: $color-action;
+    background: $color-not-done;
     border-radius: $little-radius;
     color: $color5;
     font-weight: 700;

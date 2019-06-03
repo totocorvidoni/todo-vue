@@ -1,19 +1,46 @@
 <template>
-  <li class="todo" @click="onTodoClick" :class="{ active: isActive }">
-    <div class="todo-header" :title="title + ' - ' + description">
+  <li class="todo" :class="{ active: isActive }">
+    <div class="todo-header" :title="title + ' - ' + description" @click="onTodoClick">
       <h3 class="todo-title">{{ title }}</h3>
       <p class="description">- {{ description }}</p>
     </div>
     <div class="info-wrapper">
       <div class="due-date">
-        <p>Due on</p>
-        <p>{{ shortDay(dueDate) }}</p>
-        <p>{{ time(dueDate) }}</p>
+        <span class="text" v-if="isDue(dueDate)">Was due on</span>
+        <span v-else class="text">Due On</span>
+        <div class="date">
+          <!-- TODO - Add date picker to this buttons -->
+          <button class="button day">{{ shortDay(dueDate) }}</button>
+          <button class="button time">{{ time(dueDate) }}</button>
+        </div>
       </div>
-      <p class="priority" :class="priorityClass(priority)">{{ priorityText(priority) }}</p>
+      <div class="priority" :class="priorityClass(priority)">
+        <span class="button priority-text" @click="onPriorityClick">
+          <p>{{ priorityText(priority) }}</p>
+        </span>
+        <div
+          class="drop-down"
+          v-if="changingPriority"
+          @focusout="changinPriority = false"
+          ref="priorityDrop"
+        >
+          <h4>Change Priority</h4>
+          <ul>
+            <li
+              v-for="item in priorities"
+              :key="item.value"
+              v-show="item.value != priority"
+              @click="onPriorityListClick(item.value)"
+              class="button"
+              :class="item.class"
+            >{{ item.name }}</li>
+          </ul>
+          <button class="button cancel" @click="changingPriority = false">Cancel</button>
+        </div>
+      </div>
       <button
         class="button completion"
-        :class="[ completed ? 'completed' : 'not-completed' ]"
+        :class="completed ? 'completed' : 'not-completed'"
         @click="onCompletedClick"
       >{{ completedText }}</button>
     </div>
@@ -40,6 +67,19 @@ export default {
   ],
   mixins: [datesHelper, priorityHelper],
 
+  data() {
+    return {
+      priorities: [
+        { value: 0, name: "None", class: "none" },
+        { value: 1, name: "Low", class: "low" },
+        { value: 2, name: "High", class: "high" },
+        { value: 3, name: "Very High", class: "very-high" }
+      ],
+
+      changingPriority: false
+    };
+  },
+
   methods: {
     onTodoClick() {
       this.$store.commit("setActiveTodo", this.id);
@@ -47,13 +87,28 @@ export default {
 
     onCompletedClick() {
       this.$store.commit("toggleTodo", this.id);
+    },
+
+    onPriorityClick() {
+      if (this.changingPriority) {
+        this.changingPriority = false;
+      }
+      this.changingPriority = true;
+    },
+
+    onPriorityListClick(value) {
+      this.$store.commit("changeTodoPriority", {
+        todoId: this.id,
+        priority: value
+      });
+      this.changingPriority = false;
     }
   },
 
   computed: {
     ...mapGetters(["activeTodo"]),
     completedText() {
-      return this.completed ? "Completed" : "Not Completed";
+      return this.completed ? "Completed" : "Not completed";
     },
 
     isActive() {
@@ -73,12 +128,8 @@ export default {
   margin-bottom: 0.5em;
   transition: $regular-ease;
 
-  &:hover {
-    cursor: pointer;
-  }
-
   &.active {
-    border: 5px solid $color3;
+    border: 5px solid $color4;
   }
 
   .todo-header {
@@ -90,6 +141,10 @@ export default {
     border-top-right-radius: $little-radius;
     color: $color5;
     padding: 0.5em 1em;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .todo-title {
@@ -110,43 +165,94 @@ export default {
     display: flex;
     justify-content: space-between;
     background: $color1-faded;
+
+    .button:active {
+      transform: none;
+    }
   }
 
   .priority,
-  .due-date,
   .completion {
     padding: $button-padding;
     text-align: center;
   }
 
   .priority {
-    padding: auto 0;
+    position: relative;
+    border-right: 2px solid $color1-light;
+    color: $color5;
+    width: 6em;
+  }
 
-    &.low {
-      background: $color-good;
-      color: $color5;
+  .priority-text {
+    display: grid;
+    place-content: center;
+  }
+
+  .drop-down {
+    position: absolute;
+    background: $color1;
+    padding: 0.5em;
+    left: 100%;
+    z-index: 100;
+
+    h4 {
+      padding: 0 0.5em;
+      margin-bottom: 0.5em;
     }
 
-    &.high {
-      background: $color-bad;
-      color: $color5;
+    li {
+      padding: $button-padding;
+
+      &:not(:last-child) {
+        margin-bottom: 0.25em;
+      }
     }
 
-    &.very-high {
-      background: $color-very-bad;
+    .cancel {
+      background: $color1-light;
+      border-radius: $little-radius;
       color: $color5;
-    }
-
-    &.none {
-      background: $color-very-bad;
+      font-size: 0.9em;
+      padding: $button-padding;
+      margin-top: 0.5em;
     }
   }
 
   .due-date {
-    display: flex;
-    justify-content: space-evenly;
     flex-grow: 2;
+    display: flex;
+    justify-items: end;
+    align-items: center;
     background: $color1-faded;
+
+    .text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.5em;
+    }
+
+    .date {
+      flex-grow: 2;
+      display: flex;
+      height: 100%;
+
+      .day {
+        border-left: 2px solid $color1-light;
+      }
+
+      .day,
+      .time {
+        background: $color1-faded;
+        border-right: 2px solid $color1-light;
+        font-weight: 700;
+        color: $color5;
+        height: 100%;
+        padding: 0 0.5em;
+        width: 50%;
+      }
+    }
   }
 
   .completion {
@@ -159,12 +265,24 @@ export default {
     }
 
     &.not-completed {
-      background: $color-action;
+      background: $color-not-done;
     }
+  }
 
-    &:active {
-      transform: none;
-    }
+  .none {
+    background: $no-priority;
+  }
+
+  .low {
+    background: $low-priority;
+  }
+
+  .high {
+    background: $high-priority;
+  }
+
+  .very-high {
+    background: $very-high-priority;
   }
 }
 </style>

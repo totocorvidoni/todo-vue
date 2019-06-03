@@ -10,7 +10,7 @@ export default {
           case 3:
             return "Very High";
           default:
-            return "No";
+            return "None";
         }
       } catch (error) {
         console.log(error);
