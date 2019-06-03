@@ -1,6 +1,6 @@
 <template>
   <li class="todo" :class="{ active: isActive }">
-    <div class="todo-header" :title="title + ' - ' + description" @click="onTodoClick">
+    <div class="todo-header" @click="onTodoClick">
       <h3 class="todo-title">{{ title }}</h3>
       <p class="description">- {{ description }}</p>
     </div>
