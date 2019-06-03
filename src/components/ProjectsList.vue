@@ -96,7 +96,7 @@ export default {
     background: $color1-dark;
     border: none;
     border-radius: $little-radius;
-    color: $color5;
+    color: $color3;
     font-size: 2.5rem;
     font-weight: 700;
     line-height: 1em;
@@ -146,6 +146,7 @@ export default {
     &.active {
       background: $color5;
       color: $color1;
+      transform: none;
     }
 
     &:hover {
