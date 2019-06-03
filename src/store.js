@@ -236,7 +236,7 @@ export default new Vuex.Store({
           title: payload.title || "Unnamed Todo",
           description: payload.description || "No description.",
           dueDate: payload.dueDate || null,
-          priority: payload.priority || 0,
+          priority: parseInt(payload.priority) || 0,
           notes: payload.notes || [],
           completed: payload.completed || false
         }
