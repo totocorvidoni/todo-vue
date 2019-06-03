@@ -8,15 +8,27 @@ import {
 export default {
   methods: {
     longDate(date) {
-      return format(date, "dddd Do of MMMM [at] HH:mm");
+      if (date) {
+        return format(date, "dddd Do of MMMM [at] HH:mm");
+      } else {
+        return "No Date";
+      }
     },
 
     shortDay(date) {
-      return format(date, "DD/MM/YY");
+      if (date) {
+        return format(date, "DD/MM/YY");
+      } else {
+        return "No Date";
+      }
     },
 
     time(date) {
-      return format(date, "HH:mm");
+      if (date) {
+        return format(date, "HH:mm");
+      } else {
+        return "No Time";
+      }
     },
 
     isDue(date) {
