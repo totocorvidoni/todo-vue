@@ -93,7 +93,9 @@ export default {
       this.$store.commit("setActiveTodo", this.id);
     },
 
-    onRemoveTodoClick() {},
+    onRemoveTodoClick() {
+      this.$store.dispatch("removeTodo", this.id);
+    },
 
     onCompletedClick() {
       this.$store.commit("toggleTodo", this.id);
