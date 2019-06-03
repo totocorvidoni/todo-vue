@@ -7,8 +7,16 @@ import {
 
 export default {
   methods: {
-    dueDate(date) {
+    longDate(date) {
       return format(date, "dddd Do of MMMM [at] HH:mm");
+    },
+
+    shortDay(date) {
+      return format(date, "DD/MM/YY");
+    },
+
+    time(date) {
+      return format(date, "HH:mm");
     },
 
     isDue(date) {
