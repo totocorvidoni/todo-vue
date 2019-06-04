@@ -115,6 +115,7 @@ export default {
   grid-gap: 1.5rem;
   place-items: center;
   align-content: start;
+  background: $color5;
   padding: 1em;
   overflow-y: auto;
 

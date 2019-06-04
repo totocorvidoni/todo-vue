@@ -1,13 +1,15 @@
 <template>
   <div id="project-details" class="above-left">
     <h1 class="title">Project: {{ activeProject.name }}</h1>
-    <transition name="fade" mode="out-in">
-      <new-todo-form v-if="addingTodo" @close-form="addingTodo = false"/>
-      <button v-else class="button new-todo-button" @click="addingTodo = true">New Todo</button>
-    </transition>
-    <ul class="todos">
-      <project-item v-for="todo in activeTodos" :key="todo.id" v-bind="todo"/>
-    </ul>
+    <div class="projects-wrapper">
+      <transition name="fade" mode="out-in">
+        <new-todo-form v-if="addingTodo" @close-form="addingTodo = false"/>
+        <button v-else class="button new-todo-button" @click="addingTodo = true">New Todo</button>
+      </transition>
+      <ul class="todos">
+        <project-item v-for="todo in activeTodos" :key="todo.id" v-bind="todo"/>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -36,21 +38,28 @@ export default {
 
 <style lang="scss">
 #project-details {
-  display: grid;
-  grid-template-rows: auto auto 1fr;
+  background: $color5;
   border-color: $color1;
   color: $color1;
-  padding: 0 1.5rem;
   overflow-y: auto;
+  z-index: 10;
 
   .title {
-    justify-self: center;
+    // justify-self: center;
+    align-self: start;
     background: $color1;
-    border-radius: $regular-radius;
+    // border-top-right-radius: $little-radius;
     color: $color5;
     font-size: 1.5em;
     padding: 0.5em;
     text-align: center;
+    margin: 0;
+  }
+
+  .projects-wrapper {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    padding: 1em;
   }
 
   .new-todo-button {

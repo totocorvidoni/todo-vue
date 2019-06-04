@@ -70,9 +70,7 @@ a {
 
 // Gives the impresion container is above and light comes from the left;
 .above-left {
-  border-right: 2px solid $color1;
-  border-top-right-radius: $regular-radius;
-  border-bottom-right-radius: $regular-radius;
+  border-right: 4px solid $color5;
   box-shadow: 15px 0px 10px -5px rgba($color: #000000, $alpha: 0.2);
 }
 

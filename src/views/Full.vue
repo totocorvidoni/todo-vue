@@ -3,7 +3,7 @@
     <project-list/>
     <transition name="slide-from-left" mode="out-in">
       <project-details v-if="activeProject"/>
-      <div v-else class="above-left nothing-wrapper">
+      <div v-else class="above-left nothing-wrapper projects">
         <div class="nothing-here">
           <img class="pending-image project-image" src="@/assets/project-pending.svg" alt>
           <div class="notice-wrapper">
@@ -66,7 +66,7 @@ export default {
 #full-view {
   display: grid;
   grid-template-columns: 20% 40% 40%;
-  background: $color5;
+  background: $color1;
   border: 0.5rem solid $color1;
   border-left: none;
   border-radius: $regular-radius;
@@ -102,6 +102,12 @@ export default {
 
   .nothing-wrapper {
     overflow-y: auto;
+    background: $color5;
+    border-color: $color1;
+
+    &.projects {
+      z-index: 10;
+    }
   }
 
   .pending-image {

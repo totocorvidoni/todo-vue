@@ -11,7 +11,8 @@
         ref="newProjectName"
       >
     </form>
-    <ul>
+    <div class="list-wrapper no-projects" v-if="noProjects">No Projects</div>
+    <ul class="list-wrapper" v-else>
       <li
         v-for="project in projects"
         :key="project.id"
@@ -22,6 +23,7 @@
         <button class="button remove" @click="removeProject(project.id)">X</button>
       </li>
     </ul>
+    <router-link :to="{ name: 'quick' }" class="go-quick button">Simple View</router-link>
   </div>
 </template>
 
@@ -69,7 +71,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["activeProject", "projects"]),
+    ...mapGetters(["activeProject", "projects", "noProjects"]),
     projects() {
       return this.$store.state.projects;
     }
@@ -79,6 +81,9 @@ export default {
 
 <style lang="scss">
 #project-list {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
   background: $color1;
   overflow-y: auto;
   z-index: 1000;
@@ -117,11 +122,12 @@ export default {
     }
   }
 
-  ul {
+  .list-wrapper {
     background: $color1-dark;
     border-radius: $regular-radius;
     margin: 1rem;
     padding: 1em;
+    overflow-y: auto;
   }
 
   .project-title {
@@ -152,6 +158,27 @@ export default {
 
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  .no-projects {
+    color: $color1-light;
+    line-height: 1.5em;
+    font-size: 1.5em;
+    font-weight: 700;
+    padding: 1em;
+    text-align: center;
+  }
+
+  .go-quick {
+    margin-top: auto;
+    background: $color5;
+    font-weight: 700;
+    padding: 0.5em 1em;
+    text-align: center;
+
+    &:active {
+      transform: none;
     }
   }
 
