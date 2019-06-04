@@ -44,7 +44,7 @@ export default new Vuex.Store({
         id: 1,
         title: "feed the dog",
         description:
-          "Newton is a friendly dog who likes to eat. Feeding it is my job.",
+          "Newton is a friendly dog who likes to eat. Feeding him is my job.",
         dueDate: new Date(2019, 4, 30, 16, 0),
         notes: [
           "We are out of food.",
