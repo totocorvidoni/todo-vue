@@ -65,7 +65,7 @@ ul {
 
 // Gives the impresion container is above and light comes from the left;
 .above-left {
-  border-right: 2px solid $color5;
+  border-right: 2px solid $color1;
   border-top-right-radius: $regular-radius;
   border-bottom-right-radius: $regular-radius;
   box-shadow: 15px 0px 10px -5px rgba($color: #000000, $alpha: 0.2);
@@ -79,5 +79,15 @@ ul {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+.slide-from-left-enter-active,
+.slide-from-left-leave-active {
+  transition: $fast-ease-both;
+}
+
+.slide-from-left-enter,
+.slide-from-left-leave-to {
+  transform: translateX(-100%);
 }
 </style>

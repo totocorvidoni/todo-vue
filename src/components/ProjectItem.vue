@@ -1,5 +1,5 @@
 <template>
-  <li class="todo" :class="{ active: isActive }">
+  <li class="todo-item" :class="{ active: isActive }">
     <div class="todo-header">
       <h3 class="todo-title">{{ title }}</h3>
       <p class="description">- {{ description }}</p>
@@ -133,7 +133,7 @@ export default {
 </script>
 
 <style lang="scss">
-.todo {
+.todo-item {
   border: 5px solid $color1-faded;
   border-top-left-radius: $regular-radius;
   border-top-right-radius: $regular-radius;
@@ -189,7 +189,7 @@ export default {
     }
   }
 
-  .remove {
+  & > .remove {
     border-top-right-radius: $little-radius;
     padding: 1em;
   }

@@ -1,21 +1,33 @@
 <template>
   <div id="full-view">
     <project-list/>
-    <project-details v-if="activeProject"/>
-    <div v-else>No projects here</div>
+    <transition name="slide-from-left" mode="out-in">
+      <project-details v-if="activeProject"/>
+      <div v-else class="above-left nothing-wrapper">
+        <div class="nothing-here">
+          <img class="pending-image project-image" src="@/assets/project-pending.svg" alt>
+          <div class="notice-wrapper">
+            <h2 class="title">There is no active Project</h2>
+            <p>Select a project on the panel at your left to see it's todos. If you don't no projects you can create one using the "+" button</p>
+          </div>
+        </div>
+      </div>
+    </transition>
     <todo-details v-if="activeTodo"/>
-    <div v-else class="no-todo">
-      <img src="@/assets/bars-pending.svg" alt>
-      <div class="notice-wrapper">
-        <h2 class="title">There is no Todo selected.</h2>
-        <p>
-          You can view all the details of a Todo and even add notes by clicking on the
-          <img
-            class="details-icon"
-            src="@/assets/bars-pending.png"
-            alt
-          > button in the panel to the left from here.
-        </p>
+    <div v-else class="nothing-wrapper">
+      <div class="nothing-here">
+        <img class="pending-image todo-image" src="@/assets/bars-pending.svg" alt>
+        <div class="notice-wrapper">
+          <h2 class="title">There is no Todo selected.</h2>
+          <p>
+            You can view all the details of a Todo and even add notes by clicking on the
+            <img
+              class="details-icon"
+              src="@/assets/bars-pending.png"
+              alt
+            > button in the panel to the left from here.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -61,8 +73,9 @@ export default {
   color: $color1;
   height: 100%;
 
-  .no-todo {
-    // background: $color1-faded;
+  .nothing-here {
+    display: grid;
+    grid-template-rows: 1fr auto;
     border: 5px solid $color1-faded;
     border-radius: 5%;
     margin: 3rem 5rem;
@@ -73,7 +86,6 @@ export default {
 
   .notice-wrapper {
     background: $color1-faded;
-    // border: 2px solid $color1-faded;
     border-radius: $regular-radius;
     padding: 2rem;
 
@@ -86,6 +98,24 @@ export default {
       width: auto;
       margin: 0 0.1em;
     }
+  }
+
+  .nothing-wrapper {
+    overflow-y: auto;
+  }
+
+  .pending-image {
+    width: 100%;
+    height: 300px;
+    margin: 0 auto;
+  }
+
+  .project-image {
+    padding: 2em 0;
+  }
+
+  .todo-image {
+    padding: 0 1em;
   }
 }
 </style>

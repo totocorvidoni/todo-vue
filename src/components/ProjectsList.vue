@@ -81,6 +81,7 @@ export default {
 #project-list {
   background: $color1;
   overflow-y: auto;
+  z-index: 1000;
 
   .title {
     background: $color1-dark;
