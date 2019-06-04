@@ -28,7 +28,12 @@
         <button class="button remove" @click="removeTodo(todo.id)">X</button>
       </li>
       <li>
-        <form name="new-todo" class="new-todo" @submit.prevent="submitTodo">
+        <form
+          name="new-todo"
+          class="new-todo"
+          @submit.prevent="submitTodo"
+          v-if="!noActiveTodos || addingTodo"
+        >
           <input
             type="text"
             v-model="newTodo"
@@ -64,9 +69,8 @@ export default {
       });
     },
 
-    async submitTodo() {
-      // FIXME - this wont work if an active project is already selected.
-      await this.$store.dispatch("addTodo", {
+    submitTodo() {
+      this.$store.dispatch("addTodo", {
         title: this.newTodo
       });
       this.newTodo = "";
@@ -74,7 +78,7 @@ export default {
     },
 
     removeTodo(id) {
-      this.$store.commit("removeTodoFromDefaultProject", id);
+      this.$store.dispatch("removeTodo", id);
     },
     onTodoClick(id) {
       this.$store.commit("toggleTodo", id);
@@ -91,6 +95,7 @@ export default {
 .quick-todos {
   background: $color5;
   color: $color1;
+  max-height: 100%;
   overflow-y: auto;
 
   ul {
@@ -184,7 +189,6 @@ export default {
   justify-items: center;
   align-content: center;
   color: $color1;
-  height: 100%;
   padding: 1em;
   text-align: center;
 

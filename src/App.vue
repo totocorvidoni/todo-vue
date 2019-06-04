@@ -34,6 +34,11 @@ ul {
   list-style-type: none;
 }
 
+a {
+  color: $color1;
+  text-decoration: none;
+}
+
 .button {
   border: none;
   transition: $quick-ease;

@@ -10,7 +10,7 @@ export default new Vuex.Store({
     projects: {
       "0": {
         id: "0",
-        name: "Default Project",
+        name: "Quick Todos",
         todos: [1, 2, 4]
       },
 

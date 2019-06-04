@@ -6,10 +6,12 @@
     <h1 class="main-title">THOU SHALL DO</h1>
     <p class="subtitle">I needed a larger title (I also needed a subtitle)</p>
     <main id="project">
-      <h2 class="title">Quick Todos</h2>
+      <h2 class="title">{{ project.name }}</h2>
       <quick-todos/>
     </main>
-    <router-link :to="{ name: 'full' }" class="button go-full">Full View</router-link>
+    <div class="go-full">
+      <router-link :to="{ name: 'full' }" class="button link">Full View</router-link>
+    </div>
   </div>
 </template>
 
@@ -20,16 +22,23 @@ export default {
   name: "quick-view",
   components: {
     QuickTodos
+  },
+
+  computed: {
+    project() {
+      return this.$store.getters.activeProject;
+    }
   }
 };
 </script>
 
 <style lang="scss">
 #quick-view {
+  position: relative;
   display: grid;
   grid-gap: 1rem;
   justify-items: center;
-  grid-template-rows: auto auto auto minmax(240px, 1fr) auto;
+  grid-template-rows: auto auto auto minmax(360px, 1fr);
   color: $color5;
   padding: 2rem 0 2rem;
   height: 100%;
@@ -86,14 +95,26 @@ export default {
   }
 
   .go-full {
-    display: block;
-    background: $color5;
-    color: $color1;
-    font-size: 1.2em;
-    font-weight: 700;
-    padding: 0.5em 1em;
-    text-decoration: none;
-    text-transform: uppercase;
+    position: absolute;
+    right: 10%;
+    top: 0;
+    background: $color1-dark;
+    border-bottom-left-radius: $regular-radius;
+    border-bottom-right-radius: $regular-radius;
+    padding: 1.5em;
+    padding-top: 0;
+
+    .link {
+      display: inline-block;
+      background: $color5;
+      border-bottom-left-radius: $regular-radius;
+      border-bottom-right-radius: $regular-radius;
+      font-size: 1.2em;
+      font-weight: 700;
+      padding: 0.5em 1em;
+      line-height: 2em;
+      text-transform: uppercase;
+    }
   }
 }
 </style>
