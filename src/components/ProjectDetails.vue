@@ -1,6 +1,9 @@
 <template>
   <div id="project-details" class="above-left">
-    <h1 class="title">Project: {{ activeProject.name }}</h1>
+    <div class="section-header">
+      <h1 class="title">{{ activeProject.name }}</h1>
+      <span class="category">Project</span>
+    </div>
     <div class="projects-wrapper">
       <transition name="fade" mode="out-in">
         <new-todo-form v-if="addingTodo" @close-form="addingTodo = false"/>
@@ -43,18 +46,6 @@ export default {
   color: $color1;
   overflow-y: auto;
   z-index: 10;
-
-  .title {
-    // justify-self: center;
-    align-self: start;
-    background: $color1;
-    // border-top-right-radius: $little-radius;
-    color: $color5;
-    font-size: 1.5em;
-    padding: 0.5em;
-    text-align: center;
-    margin: 0;
-  }
 
   .projects-wrapper {
     display: grid;

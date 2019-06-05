@@ -67,7 +67,7 @@ export default {
   display: grid;
   grid-template-columns: 20% 40% 40%;
   background: $color1;
-  border: 0.5rem solid $color1;
+  border: 0.5rem solid $color1-dark;
   border-left: none;
   border-radius: $regular-radius;
   color: $color1;

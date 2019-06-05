@@ -1,23 +1,30 @@
 <template>
   <div id="todo-details">
-    <div class="title" :class="priorityClass(activeTodo.priority)">
-      <h1>{{ activeTodo.title }}</h1>
-      <p class="priority">{{ priorityText(activeTodo.priority) }}</p>
+    <div class="section-header">
+      <h1 class="title">{{ activeTodo.title }}</h1>
+      <span class="category">Todo</span>
+      <span
+        class="priority"
+        :class="priorityClass(activeTodo.priority)"
+      >{{ priorityText(activeTodo.priority) }} Priority</span>
     </div>
     <p class="description">{{ activeTodo.description }}</p>
-    <button class="completed button" @click="onCompleteClick">{{ completeButtonText }}</button>
     <transition name="fade">
-      <div class="due-date-wrapper" v-if="!this.activeTodo.completed">
-        <h2 v-if="isDue(date)">Has been due for</h2>
-        <h2 v-else>Due in</h2>
-        <p class="time-left" :class="howSoon(date)">{{ timeLeft(date) }}</p>
-        <div v-if="!pickingDate" class="due-date">
+      <div class="due-date-wrapper">
+        <div class="wrapper" :class="howSoon(date)">
+          <h2 v-if="isDue(date)">Has been due for {{ timeLeft(date) }}</h2>
+          <h2 v-else>Due in {{ timeLeft(date) }}</h2>
           <p>{{ longDate(date) }}</p>
-          <button class="button edit-date" title="Change Due Date" @click="pickingDate = true">
-            <img src="@/assets/edit.png" alt>
-          </button>
         </div>
-        <div v-else class="date-picker">
+        <div v-if="!pickingDate" class="date-actions">
+          <button class="button complete" @click="onCompleteClick">{{ completeButtonText }}</button>
+          <button
+            class="button reschedule"
+            title="Change Due Date"
+            @click="pickingDate = true"
+          >Reschedule?</button>
+        </div>
+        <div v-else class="date-actions date-picker">
           <date-picker
             class="date-picker"
             v-model="newDueDate"
@@ -31,17 +38,16 @@
       </div>
     </transition>
     <div class="notes-wrapper">
-      <h2>Notes</h2>
+      <form class="new-note" @submit.prevent="onNewNote">
+        <textarea name="new-note" v-model="newNote" rows="4"/>
+        <input class="button" type="submit" value="Add Note">
+      </form>
       <div class="notes">
         <div class="note" v-for="(note, index) in activeTodo.notes">
           <p class="text">{{ note }}</p>
           <button class="remove button" @click="onRemoveNoteClick(index)">X</button>
         </div>
       </div>
-      <form class="new-note" @submit.prevent="onNewNote">
-        <textarea name="new-note" v-model="newNote" rows="4"/>
-        <input class="button" type="submit" value="Add Note">
-      </form>
     </div>
   </div>
 </template>
@@ -101,9 +107,7 @@ export default {
     },
 
     completeButtonText() {
-      return this.activeTodo.completed
-        ? "Mark as not completed"
-        : "Mark as completed";
+      return this.activeTodo.completed ? "Unfinish todo" : "Finish Todo!";
     }
   }
 };
@@ -112,136 +116,122 @@ export default {
 <style lang="scss">
 #todo-details {
   display: grid;
-  grid-gap: 1.5rem;
-  place-items: center;
+  grid-gap: 1rem;
+  justify-items: center;
   align-content: start;
   background: $color5;
-  padding: 1em;
   overflow-y: auto;
 
-  .title {
+  .section-header {
+    justify-self: stretch;
     color: $color5;
     text-align: center;
     padding: 1em;
-    border-radius: $regular-radius;
 
-    h1 {
+    .title {
       text-transform: capitalize;
-      font-size: 1.5em;
       margin: 0 0 0.2em;
     }
   }
 
-  .low,
-  .high,
-  .very-high {
-    color: $color5;
-  }
-
-  .low {
-    background: $color-good;
-  }
-
-  .high {
-    background: $color-attention;
-  }
-
-  .very-high {
-    background: $color-bad;
-  }
-
-  .none {
-    border: 2px solid $color1;
-    color: $color1;
-  }
-
   .priority {
+    font-size: 1.2em;
     font-style: italic;
-  }
+    font-weight: 700;
 
-  h2 {
-    text-decoration: underline;
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
-    text-align: center;
+    &.none {
+      color: $no-priority;
+    }
+
+    &.low {
+      color: $low-priority;
+    }
+
+    &.high {
+      color: $high-priority;
+
+      &::after {
+        content: "!";
+      }
+    }
+
+    &.very-high {
+      color: $very-high-priority;
+
+      &::after {
+        content: "!!!";
+      }
+    }
   }
 
   .description {
+    justify-self: center;
     font-weight: 700;
     font-size: 1.5em;
     width: 60%;
     text-align: center;
-    background: $color3;
+    background: $color4;
     padding: 1em;
   }
 
-  .completed {
-    background: $color-not-done;
-    color: $color5;
-    border-radius: $regular-radius;
-    font-weight: 700;
-    padding: 0.5em 1em;
+  h2 {
+    margin-bottom: 0.25em;
+    text-align: center;
   }
 
   .due-date-wrapper {
     text-align: center;
+    border-radius: $regular-radius;
 
-    .time-left {
-      display: inline-block;
-      border-radius: $little-radius;
+    .wrapper {
+      border-top-left-radius: $little-radius;
+      border-top-right-radius: $little-radius;
       color: $color5;
-      font-size: 1.5em;
-      font-weight: 700;
-      margin-bottom: 5px;
-      padding: 0.25em 1em;
-      text-transform: capitalize;
-    }
-
-    .due-date {
-      display: flex;
-      font-style: italic;
-      margin: 0 auto;
-      width: max-content;
-
-      p {
-        margin: auto 0;
-      }
+      padding: 1em;
     }
 
     .not-soon {
-      background: $color1-light;
+      background: $no-priority;
     }
 
     .soon {
-      background: $color-attention;
+      background: $low-priority;
     }
 
     .very-soon {
-      background: $color-bad;
+      background: $high-priority;
     }
 
     .due {
-      background: $color-very-bad;
+      background: $very-high-priority;
     }
   }
 
-  .edit-date {
-    margin-left: 0.5em;
-    background: none;
+  .complete,
+  .reschedule {
+    color: $color5;
+    font-weight: 700;
+    padding: 0.5em 1em;
+    width: 50%;
+    white-space: nowrap;
+  }
 
-    img {
-      width: 24px;
-      height: auto;
-    }
+  .complete {
+    background: $color-done;
+    border-bottom-left-radius: $regular-radius;
+  }
+
+  .reschedule {
+    background: $color1;
+    border-bottom-right-radius: $regular-radius;
   }
 
   .date-confirm {
     background: $color-not-done;
-    border-radius: $little-radius;
+    border-bottom-right-radius: $little-radius;
     color: $color5;
     font-weight: 700;
-    margin-left: 0.5em;
-    padding: $button-padding;
+    padding: 0.5em 1em;
   }
 
   .notes {
@@ -309,6 +299,10 @@ export default {
       width: 4em;
       white-space: normal;
     }
+  }
+
+  .button:active {
+    transform: none;
   }
 }
 </style>

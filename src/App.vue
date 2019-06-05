@@ -59,6 +59,30 @@ a {
   }
 }
 
+// Todo and Project Headers
+.section-header {
+  position: relative;
+  align-self: start;
+  background: $color1;
+  color: $color5;
+  padding: 0.5em;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.5em;
+}
+
+.category {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  color: $color1-light;
+  font-weight: 700;
+  text-transform: uppercase;
+  user-select: none;
+}
+
 .remove {
   background: $color-bad;
   border: none;

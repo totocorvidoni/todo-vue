@@ -23,7 +23,7 @@
         <button class="button remove" @click="removeProject(project.id)">X</button>
       </li>
     </ul>
-    <router-link :to="{ name: 'quick' }" class="go-quick button">Simple View</router-link>
+    <router-link :to="{ name: 'quick' }" class="go-quick button">Go to simple view</router-link>
   </div>
 </template>
 
@@ -90,7 +90,6 @@ export default {
 
   .title {
     background: $color1-dark;
-    border-top-right-radius: 0.5rem;
     color: $color5;
     margin: 0;
     padding: 0.5em;
