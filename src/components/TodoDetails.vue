@@ -121,6 +121,7 @@ export default {
   align-content: start;
   background: $color5;
   overflow-y: auto;
+  padding-bottom: 1em;
 
   .section-header {
     justify-self: stretch;
@@ -167,6 +168,7 @@ export default {
   .description {
     justify-self: center;
     background: $color4;
+    border-radius: $little-radius;
     color: $color1;
     font-weight: 700;
     font-size: 1.5em;

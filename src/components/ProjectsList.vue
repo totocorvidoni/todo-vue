@@ -1,6 +1,7 @@
 <template>
   <div id="project-list" class="above-left">
     <h1 class="title">Projects</h1>
+    <button class="button remove close-list" @click="$emit('panel-closing')">Close Panel</button>
     <button class="add-project button" @click="onAddProjectClick" v-if="!addingProject">+</button>
     <form v-else @submit.prevent="onNewProjectSubmit">
       <input
@@ -63,6 +64,11 @@ export default {
 
     onProjectClick(id) {
       this.$store.dispatch("setActiveProject", id);
+      this.$nextTick(() => {
+        document
+          .getElementById("project-details")
+          .scrollIntoView({ behavior: "smooth" });
+      });
     },
 
     removeProject(id) {
@@ -189,6 +195,39 @@ export default {
 
     &.button:active {
       transform: none;
+    }
+  }
+
+  .close-list {
+    display: none;
+    padding: 0.5em;
+    font-size: 1.1em;
+    text-transform: uppercase;
+
+    &.remove {
+      border-radius: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  #project-list {
+    .list-wrapper {
+      margin-left: 0;
+      margin-right: 0;
+      border-radius: 0;
+    }
+
+    .go-quick {
+      border-bottom: 10px solid $color1-dark;
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  #project-list {
+    .close-list {
+      display: block;
     }
   }
 }

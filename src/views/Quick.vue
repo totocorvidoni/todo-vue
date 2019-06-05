@@ -1,12 +1,5 @@
 <template>
   <div id="quick-view">
-    <main id="project">
-      <h2 class="title">{{ project.name }}</h2>
-      <quick-todos/>
-    </main>
-    <div class="go-full">
-      <router-link :to="{ name: 'full' }" class="button link">Full View</router-link>
-    </div>
     <header>
       <div class="logo">
         <img src="@/assets/logo-todo.svg" alt="A Gothic letter T">
@@ -14,6 +7,13 @@
       <h1 class="main-title">THOU SHALL DO</h1>
       <p class="subtitle">I needed a larger title (I also needed a subtitle)</p>
     </header>
+    <main id="project">
+      <h2 class="title">{{ project.name }}</h2>
+      <quick-todos/>
+    </main>
+    <div class="go-full">
+      <router-link :to="{ name: 'full' }" class="button link">Full View</router-link>
+    </div>
   </div>
 </template>
 
@@ -37,13 +37,15 @@ export default {
 <style lang="scss">
 #quick-view {
   display: grid;
-  grid-gap: 1rem;
-  justify-items: center;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: minmax(360px, 1fr) auto;
+  grid-template-rows: 1fr auto;
+  grid-column-gap: 2rem;
+  grid-row-gap: 1rem;
+  justify-items: center;
   color: $color5;
   padding: 2rem;
-  height: 100%;
+  min-height: 100%;
+  width: 100%;
 
   header {
     grid-row: 1 / -1;
@@ -87,6 +89,7 @@ export default {
     border-top-left-radius: $regular-radius;
     border-top-right-radius: $regular-radius;
     transition: $regular-ease;
+    width: 90%;
 
     * {
       transition: $regular-ease;
@@ -101,8 +104,6 @@ export default {
       line-height: 1.5em;
       padding: 0.5em 2em;
       text-align: center;
-      width: 480px;
-      height: 60px;
     }
   }
 
@@ -115,13 +116,28 @@ export default {
     .link {
       display: inline-block;
       background: $color5;
-
       border-radius: $regular-radius;
       font-size: 1.2em;
       font-weight: 700;
       padding: 0.5em 1em;
       line-height: 2em;
       text-transform: uppercase;
+    }
+  }
+}
+
+@media screen and (max-width: 850px) {
+  #quick-view {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+
+    header {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    #project {
+      width: 100%;
     }
   }
 }

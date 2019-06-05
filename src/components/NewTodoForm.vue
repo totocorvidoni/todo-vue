@@ -130,8 +130,8 @@ export default {
 
   & > .form-submit {
     grid-column: 3;
-    background: $color1;
-    color: $color5;
+    background: $color3;
+    color: $color1;
   }
 
   & > .form-cancel {

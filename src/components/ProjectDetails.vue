@@ -64,4 +64,19 @@ export default {
     margin-bottom: 0.5em;
   }
 }
+
+@media screen and (max-width: 1250px) {
+  #project-details {
+    border-right: none;
+    border-bottom: 5px solid $color1-dark;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  #project-details {
+    .title {
+      padding: 0 2rem;
+    }
+  }
+}
 </style>

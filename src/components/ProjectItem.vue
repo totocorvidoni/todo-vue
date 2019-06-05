@@ -89,6 +89,11 @@ export default {
   methods: {
     onTodoClick() {
       this.$store.commit("setActiveTodo", this.id);
+      this.$nextTick(() => {
+        document
+          .getElementById("todo-details")
+          .scrollIntoView({ behavior: "smooth" });
+      });
     },
 
     onRemoveTodoClick() {

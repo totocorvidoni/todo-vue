@@ -121,13 +121,6 @@ export default {
     }
   }
 
-  .done-badge {
-    height: 20px;
-    width: auto;
-    margin-right: 0.2em;
-    user-select: none;
-  }
-
   .remove {
     border-top-right-radius: $little-radius;
     border-bottom-right-radius: $little-radius;
