@@ -76,6 +76,7 @@ export default {
   .nothing-here {
     display: grid;
     grid-template-rows: 1fr auto;
+    grid-gap: 1em;
     border: 5px solid $color1-faded;
     border-radius: 5%;
     margin: 3rem 5rem;

@@ -2,7 +2,6 @@
   <li class="todo-item" :class="{ active: isActive }">
     <div class="todo-header">
       <h3 class="todo-title">{{ title }}</h3>
-      <p class="description">- {{ description }}</p>
       <div class="button inspect" @click="onTodoClick" title="Todo Details">
         <button class="button">
           <img class="icon" src="@/assets/bars.png" alt>
@@ -11,16 +10,15 @@
       <button class="button remove" title="Remove Todo" @click="onRemoveTodoClick">
         <span class="button">X</span>
       </button>
+      <p class="description">{{ description }}</p>
     </div>
     <div class="info-wrapper">
       <div class="due-date">
         <span class="text" v-if="isDue(dueDate)">Was due on</span>
         <span v-else class="text">Due On</span>
-        <div class="date">
-          <!-- TODO - Add date picker to this buttons -->
-          <button class="button day">{{ shortDay(dueDate) }}</button>
-          <button class="button time">{{ time(dueDate) }}</button>
-        </div>
+        <!-- TODO - Add date picker to this buttons -->
+        <button class="button day">{{ shortDay(dueDate) }}</button>
+        <button class="button time">{{ time(dueDate) }}</button>
       </div>
       <div class="priority" :class="priorityClass(priority)">
         <span class="button priority-text" @click="onPriorityClick">
@@ -78,7 +76,7 @@ export default {
   data() {
     return {
       priorities: [
-        { value: 0, name: "None", class: "none" },
+        { value: 0, name: "No", class: "none" },
         { value: 1, name: "Low", class: "low" },
         { value: 2, name: "High", class: "high" },
         { value: 3, name: "Very High", class: "very-high" }
@@ -146,36 +144,39 @@ export default {
 
   .todo-header {
     display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: auto 1fr auto;
-    justify-content: flex-start;
-    background: $color1-light;
-    border-top-left-radius: $little-radius;
-    border-top-right-radius: $little-radius;
+    grid-template-columns: 1fr repeat(2, 40px);
+    grid-template-rows: 1fr auto;
+    // border-top-right-radius: $little-radius;
     color: $color5;
   }
 
   .todo-title {
-    text-transform: capitalize;
-    margin-right: 0.25em;
+    grid-area: 1 / 1 / 2 / 2;
+    background: $color1-light;
+    border-top-left-radius: $little-radius;
     flex-grow: 2;
     padding: 0.5em;
     padding-right: 0;
+    text-transform: capitalize;
   }
 
   .description {
-    margin: auto 0;
+    grid-column: 1 / -1;
+    background: $color1-faded;
+    color: $color1-light;
     font-style: italic;
-    white-space: nowrap;
+    margin: auto 0;
+    padding: 0.5em;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .inspect {
     display: flex;
+    justify-content: center;
     align-content: center;
     background: $color1;
-    margin-left: 0.5em;
     padding: 0 0.5em;
 
     .button {
@@ -189,15 +190,31 @@ export default {
     }
   }
 
-  & > .remove {
+  .remove {
     border-top-right-radius: $little-radius;
-    padding: 1em;
+    font-size: 1em;
   }
 
   .info-wrapper {
     display: flex;
     justify-content: space-between;
     background: $color1-faded;
+  }
+
+  .due-date {
+    flex-grow: 2;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    background: $color1-faded;
+
+    & > * {
+      margin: auto 0.25em auto 0;
+      background: none;
+      color: $color5;
+      font-weight: 700;
+      padding: 0 0.5em;
+    }
   }
 
   .priority,
@@ -208,7 +225,6 @@ export default {
 
   .priority {
     position: relative;
-    border-right: 2px solid $color1-light;
     color: $color5;
     width: 6em;
   }
@@ -245,42 +261,6 @@ export default {
       font-size: 0.9em;
       padding: $button-padding;
       margin-top: 0.5em;
-    }
-  }
-
-  .due-date {
-    flex-grow: 2;
-    display: flex;
-    justify-items: end;
-    align-items: center;
-    background: $color1-faded;
-
-    .text {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 0.5em;
-    }
-
-    .date {
-      flex-grow: 2;
-      display: flex;
-      height: 100%;
-
-      .day {
-        border-left: 2px solid $color1-light;
-      }
-
-      .day,
-      .time {
-        background: $color1-faded;
-        border-right: 2px solid $color1-light;
-        font-weight: 700;
-        color: $color5;
-        height: 100%;
-        padding: 0 0.5em;
-        width: 50%;
-      }
     }
   }
 

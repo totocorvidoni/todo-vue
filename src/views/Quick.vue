@@ -1,10 +1,5 @@
 <template>
   <div id="quick-view">
-    <div class="logo">
-      <img src="@/assets/logo-todo.svg" alt="A Gothic letter T">
-    </div>
-    <h1 class="main-title">THOU SHALL DO</h1>
-    <p class="subtitle">I needed a larger title (I also needed a subtitle)</p>
     <main id="project">
       <h2 class="title">{{ project.name }}</h2>
       <quick-todos/>
@@ -12,6 +7,13 @@
     <div class="go-full">
       <router-link :to="{ name: 'full' }" class="button link">Full View</router-link>
     </div>
+    <header>
+      <div class="logo">
+        <img src="@/assets/logo-todo.svg" alt="A Gothic letter T">
+      </div>
+      <h1 class="main-title">THOU SHALL DO</h1>
+      <p class="subtitle">I needed a larger title (I also needed a subtitle)</p>
+    </header>
   </div>
 </template>
 
@@ -34,29 +36,39 @@ export default {
 
 <style lang="scss">
 #quick-view {
-  position: relative;
   display: grid;
   grid-gap: 1rem;
   justify-items: center;
-  grid-template-rows: auto auto auto minmax(360px, 1fr);
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(360px, 1fr) auto;
   color: $color5;
-  padding: 2rem 0 2rem;
+  padding: 2rem;
   height: 100%;
+
+  header {
+    grid-row: 1 / -1;
+    grid-column: 2 / -1;
+    align-self: center;
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+  }
 
   .logo {
     background: $color1-dark;
     border-radius: $regular-radius;
-    padding: 1rem 0.25rem;
     box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
+    padding: 1rem 0.25rem;
+    margin: 0 auto;
     img {
-      height: 100px;
-      width: 100px;
+      height: 250px;
+      width: 250px;
     }
   }
 
   .main-title {
     font-size: 2.5rem;
-    margin: 0;
+    // margin: 0;
   }
 
   .subtitle {
@@ -95,20 +107,16 @@ export default {
   }
 
   .go-full {
-    position: absolute;
-    right: 10%;
-    top: 0;
+    // grid-column: 2 / 3;
     background: $color1-dark;
-    border-bottom-left-radius: $regular-radius;
-    border-bottom-right-radius: $regular-radius;
-    padding: 1.5em;
-    padding-top: 0;
+    border-radius: $regular-radius;
+    padding: 1em;
 
     .link {
       display: inline-block;
       background: $color5;
-      border-bottom-left-radius: $regular-radius;
-      border-bottom-right-radius: $regular-radius;
+
+      border-radius: $regular-radius;
       font-size: 1.2em;
       font-weight: 700;
       padding: 0.5em 1em;

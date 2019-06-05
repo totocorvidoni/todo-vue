@@ -11,7 +11,7 @@
     <p class="description">{{ activeTodo.description }}</p>
     <transition name="fade">
       <div class="due-date-wrapper">
-        <div class="wrapper" :class="howSoon(date)">
+        <div class="info-wrapper" :class="howSoon(date)">
           <h2 v-if="isDue(date)">Has been due for {{ timeLeft(date) }}</h2>
           <h2 v-else>Due in {{ timeLeft(date) }}</h2>
           <p>{{ longDate(date) }}</p>
@@ -166,12 +166,13 @@ export default {
 
   .description {
     justify-self: center;
+    background: $color4;
+    color: $color1;
     font-weight: 700;
     font-size: 1.5em;
-    width: 60%;
-    text-align: center;
-    background: $color4;
     padding: 1em;
+    text-align: center;
+    width: 60%;
   }
 
   h2 {
@@ -183,11 +184,11 @@ export default {
     text-align: center;
     border-radius: $regular-radius;
 
-    .wrapper {
+    .info-wrapper {
       border-top-left-radius: $little-radius;
       border-top-right-radius: $little-radius;
       color: $color5;
-      padding: 1em;
+      padding: 1em 2em;
     }
 
     .not-soon {

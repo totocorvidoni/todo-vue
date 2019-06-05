@@ -172,6 +172,7 @@ export default {
   .go-quick {
     margin-top: auto;
     background: $color5;
+    border-top: 10px solid $color1-dark;
     font-weight: 700;
     padding: 0.5em 1em;
     text-align: center;

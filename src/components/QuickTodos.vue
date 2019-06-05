@@ -17,14 +17,6 @@
         :class="{ completed: todo.completed }"
       >
         <h3 class="todo-title button" @click="onTodoClick(todo.id)">{{ todo.title }}</h3>
-        <transition name="fade">
-          <img
-            class="done-badge"
-            src="@/assets/done-green.png"
-            alt="done checkmark"
-            v-if="todo.completed"
-          >
-        </transition>
         <button class="button remove" @click="removeTodo(todo.id)">X</button>
       </li>
       <li>
@@ -111,7 +103,6 @@ export default {
     display: flex;
     background: $color1-faded;
     border-radius: $little-radius;
-    padding: 0.5em;
     text-transform: capitalize;
 
     &.completed {
@@ -123,6 +114,7 @@ export default {
   .todo-title {
     flex-grow: 2;
     font-weight: 700;
+    padding: 0.5em;
 
     &:hover {
       transform: translateX(7px);
@@ -137,7 +129,9 @@ export default {
   }
 
   .remove {
-    border-radius: 50%;
+    border-top-right-radius: $little-radius;
+    border-bottom-right-radius: $little-radius;
+    font-size: 1em;
   }
 
   .button.add {
@@ -151,7 +145,6 @@ export default {
     justify-content: space-between;
     background: $color3;
     border-radius: $little-radius;
-    // margin-top: 0.25em;
     padding: 0.25em 0.5em;
   }
 

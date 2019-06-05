@@ -61,7 +61,7 @@ export default new Vuex.Store({
         id: 2,
         title: "play with the dog",
         description:
-          "Newton is a friendly dog who likes to eat. Feeding it is my job.",
+          "Newton is a friendly dog who likes to eat. Feeding him is my job.",
         dueDate: new Date(2019, 4, 30, 16, 0),
         notes: [
           "We are out of food.",
@@ -77,7 +77,7 @@ export default new Vuex.Store({
         id: 3,
         title: "eat with the dog",
         description:
-          "Newton is a friendly dog who likes to eat. Feeding it is my job.",
+          "Newton is a friendly dog who likes to eat. Feeding him is my job.",
         dueDate: new Date(2019, 4, 30, 16, 0),
         notes: [
           "We are out of food.",
@@ -93,7 +93,7 @@ export default new Vuex.Store({
         id: 4,
         title: "be the dog",
         description:
-          "Newton is a friendly dog who likes to eat. Feeding it is my job.",
+          "Newton is a friendly dog who likes to eat. Feeding him is my job.",
         dueDate: new Date(2019, 4, 30, 16, 0),
         notes: [
           "We are out of food.",

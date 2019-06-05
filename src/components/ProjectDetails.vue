@@ -5,13 +5,14 @@
       <span class="category">Project</span>
     </div>
     <div class="projects-wrapper">
+      <!-- TODO - Add a placeholder if project has no todos. -->
+      <ul class="todos">
+        <project-item v-for="todo in activeTodos" :key="todo.id" v-bind="todo"/>
+      </ul>
       <transition name="fade" mode="out-in">
         <new-todo-form v-if="addingTodo" @close-form="addingTodo = false"/>
         <button v-else class="button new-todo-button" @click="addingTodo = true">New Todo</button>
       </transition>
-      <ul class="todos">
-        <project-item v-for="todo in activeTodos" :key="todo.id" v-bind="todo"/>
-      </ul>
     </div>
   </div>
 </template>
