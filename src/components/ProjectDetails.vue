@@ -5,8 +5,11 @@
       <span class="category">Project</span>
     </div>
     <div class="projects-wrapper">
-      <!-- TODO - Add a placeholder if project has no todos. -->
-      <ul class="todos">
+      <div v-if="noActiveTodos && !addingTodo" class="no-todos">
+        <h2>This project has no todos.</h2>
+        <p>Add some by clicking the "New Todo" button!</p>
+      </div>
+      <ul v-else class="todos">
         <project-item v-for="todo in activeTodos" :key="todo.id" v-bind="todo"/>
       </ul>
       <transition name="fade" mode="out-in">
@@ -35,7 +38,7 @@ export default {
   methods: {},
 
   computed: {
-    ...mapGetters(["activeProject", "activeTodos"])
+    ...mapGetters(["activeProject", "activeTodos", "noActiveTodos"])
   }
 };
 </script>
@@ -62,6 +65,15 @@ export default {
     font-weight: 700;
     padding: 0.5em 1em;
     margin-bottom: 0.5em;
+  }
+
+  .no-todos {
+    background: $color1-faded;
+    border-radius: $regular-radius;
+    color: $color1-light;
+    margin: 3em;
+    padding: 3em;
+    text-align: start;
   }
 }
 
