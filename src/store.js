@@ -232,6 +232,7 @@ export default new Vuex.Store({
     },
 
     removeTodo({ commit, state }, id) {
+      // TODO - should not remove todo with id "0";
       commit("removeTodo", id);
       commit("removeTodoFromProject", id);
       if (state.activeTodoId == id) {
