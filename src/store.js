@@ -159,7 +159,7 @@ export default new Vuex.Store({
 
     removeProject({ commit, state }, id) {
       if (id == "0") {
-        alert("Sorry, the default project cannot be removed");
+        alert("Sorry, the default project cannot be removed.");
       } else {
         state.projects[id].todos.forEach(todoId => {
           commit("removeTodo", todoId);
