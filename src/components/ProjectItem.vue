@@ -16,14 +16,11 @@
       <div class="due-date">
         <span class="text" v-if="isDue(dueDate)">Was due on</span>
         <span v-else class="text">Due On</span>
-        <!-- TODO - Add date picker to this buttons -->
-        <button class="button day">{{ shortDay(dueDate) }}</button>
-        <button class="button time">{{ time(dueDate) }}</button>
+        <span class="day">{{ shortDay(dueDate) }}</span>
+        <span class="time">{{ time(dueDate) }}</span>
       </div>
-      <div class="priority" :class="priorityClass(priority)">
-        <span class="button priority-text" @click="onPriorityClick">
-          <p>{{ priorityText(priority) }}</p>
-        </span>
+      <div class="priority button" :class="priorityClass(priority)" @click="onPriorityClick">
+        <p>{{ priorityText(priority) }}</p>
         <div
           class="drop-down"
           v-if="changingPriority"
@@ -230,17 +227,15 @@ export default {
 
   .priority {
     position: relative;
+    display: grid;
+    place-content: center;
     color: $color5;
     width: 6em;
   }
 
-  .priority-text {
-    display: grid;
-    place-content: center;
-  }
-
   .drop-down {
     position: absolute;
+    top: 0;
     background: $color1;
     padding: 0.5em;
     left: 100%;
