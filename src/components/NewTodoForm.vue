@@ -1,5 +1,5 @@
 <template>
-  <form class="new-todo" @submit.prevent="onFormSubmit">
+  <form class="new-todo-form" @submit.prevent="onFormSubmit">
     <h3 class="form-title">New Todo</h3>
     <label for="title">Title</label>
     <input type="text" name="title" v-model="newTodoTitle" class="new-title">
@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss">
-.new-todo {
+.new-todo-form {
   display: grid;
   grid-template-columns: auto auto 1fr;
   grid-gap: 0.5em;

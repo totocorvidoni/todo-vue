@@ -130,10 +130,8 @@ export default {
     margin: 0 auto;
   }
 
-  // TODO - get the form size exactly the same as the li elements.
   .new-todo {
     display: flex;
-    justify-content: space-between;
     background: $color3;
     border-radius: $little-radius;
     padding: 0.25em 0.5em;
