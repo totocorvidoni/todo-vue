@@ -5,7 +5,7 @@
       <span class="category">Project</span>
     </div>
     <div class="projects-wrapper">
-      <div v-if="noActiveTodos && !addingTodo" class="no-todos">
+      <div v-if="noActiveTodos && !addingTodo" class="empty-project">
         <h2>This project has no todos.</h2>
         <p>Add some by clicking the "New Todo" button!</p>
       </div>
@@ -67,13 +67,12 @@ export default {
     margin-bottom: 0.5em;
   }
 
-  .no-todos {
+  .empty-project {
     background: $color1-faded;
     border-radius: $regular-radius;
     color: $color1-light;
     margin: 3em;
     padding: 3em;
-    text-align: start;
   }
 }
 

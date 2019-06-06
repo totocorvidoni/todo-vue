@@ -8,16 +8,25 @@
         :class="priorityClass(activeTodo.priority)"
       >{{ priorityText(activeTodo.priority) }} Priority</span>
     </div>
-    <p class="description">{{ activeTodo.description }}</p>
+    <form v-if="changingDescription" @submit.prevent="onDescriptionChange" class="description">
+      <label for="new-description">New Todo Description</label>
+      <input type="text" name="new-description" v-model="newDescription">
+      <input type="submit" value="Confirm" class="button">
+    </form>
+    <div v-else class="description">
+      <p class="text">{{ activeTodo.description }}</p>
+      <button class="button edit" @click="changingDescription = true">Edit</button>
+    </div>
     <transition name="fade">
       <div class="due-date-wrapper">
         <div class="info-wrapper" :class="statusClass">
           <!-- TODO - refactor, too much logic on template -->
           <h2 v-if="activeTodo.completed">Completed {{ timeLeft(activeTodo.completed) }} ago</h2>
+          <h2 v-else-if="!activeTodo.dueDate">This todo has no due date.</h2>
           <h2 v-else-if="isDue(date)">Has been due for {{ timeLeft(date) }}</h2>
           <h2 v-else>Due in {{ timeLeft(date) }}</h2>
           <p v-if="activeTodo.completed">{{ longDate(activeTodo.completed) }}</p>
-          <p v-else>{{ longDate(date) }}</p>
+          <p v-else-if="activeTodo.dueDate">{{ longDate(date) }}</p>
         </div>
         <div v-if="!pickingDate" class="date-actions">
           <button class="button complete" @click="onCompleteClick">{{ completeButtonText }}</button>
@@ -68,12 +77,23 @@ export default {
   data() {
     return {
       pickingDate: false,
+      changingDescription: false,
+      newDescription: "",
       newDueDate: "",
       newNote: ""
     };
   },
 
   methods: {
+    onDescriptionChange() {
+      this.$store.commit("changeTodoDescription", {
+        todoId: this.activeTodo.id,
+        description: this.newDescription
+      });
+      this.changingDescription = false;
+      this.newDescription = "";
+    },
+
     onCompleteClick() {
       this.$store.dispatch("toggleTodo", this.activeTodo.id);
     },
@@ -89,7 +109,6 @@ export default {
 
     onNewNote(e) {
       if (this.newNote !== "") {
-        b;
         this.$store.commit("addTodoNote", {
           todoId: this.activeTodo.id,
           note: this.newNote
@@ -184,9 +203,49 @@ export default {
     color: $color1;
     font-weight: 700;
     font-size: 1.5em;
-    padding: 1em;
     text-align: center;
     width: 60%;
+
+    .text {
+      padding: 0.5em 1em;
+    }
+
+    .edit {
+      background: none;
+      color: $color1-light;
+      font-size: 0.6em;
+      font-weight: 700;
+      border: 1px solid $color1-light;
+      border-radius: $regular-radius;
+      padding: $button-padding;
+      margin-bottom: .5em;
+    }
+
+    & > label {
+      display: block;
+      padding: 0.5em 1em;
+    }
+
+    & > input[type="text"] {
+      border: none;
+      border-bottom: 2px solid $color1;
+      background: none;
+      color: $color1;
+      padding: 0 0.5em;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    & > input[type="submit"] {
+      background: $color1;
+      border-radius: $little-radius;
+      color: $color4;
+      font-size: 0.8em;
+      margin: 0.5em 0;
+      padding: $button-padding;
+    }
   }
 
   h2 {

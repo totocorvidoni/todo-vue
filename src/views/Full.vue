@@ -10,8 +10,8 @@
       <div class="nothing-here">
         <img class="pending-image project-image" src="@/assets/project-pending.svg" alt>
         <div class="notice-wrapper">
-          <h2 class="title">There is no active Project</h2>
-          <p>Select a project on the panel at your left to see it's todos. If you don't no projects you can create one using the "+" button</p>
+          <h2 class="title">There is no active Project.</h2>
+          <p>Select a project on the panel at your left to see it's todos. If you don't no projects you can create one using the "+" button.</p>
         </div>
       </div>
     </div>
@@ -110,6 +110,7 @@ export default {
     overflow-y: auto;
     background: $color5;
     border-color: $color1;
+    text-align: start;
 
     &.projects {
       z-index: 10;

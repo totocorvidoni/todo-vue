@@ -21,24 +21,19 @@
       </div>
       <div class="priority button" :class="priorityClass(priority)" @click="onPriorityClick">
         <p>{{ priorityText(priority) }}</p>
-        <div
-          class="drop-down"
-          v-if="changingPriority"
-          @focusout="changinPriority = false"
-          ref="priorityDrop"
-        >
+        <div class="drop-down" v-if="changingPriority" ref="priorityDrop">
           <h4>Change Priority</h4>
           <ul>
             <li
               v-for="item in priorities"
               :key="item.value"
               v-show="item.value != priority"
-              @click="onPriorityListClick(item.value)"
+              @click.stop="onPriorityListClick(item.value)"
               class="button"
               :class="item.class"
             >{{ item.name }}</li>
           </ul>
-          <button class="button cancel" @click="changingPriority = false">Cancel</button>
+          <button class="button cancel" @click.stop="changingPriority = false">Cancel</button>
         </div>
       </div>
       <button

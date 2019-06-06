@@ -5,7 +5,11 @@
         <img src="@/assets/logo-todo.svg" alt="A Gothic letter T">
       </div>
       <h1 class="main-title">THOU SHALL DO</h1>
-      <p class="subtitle">I needed a larger title (I also needed a subtitle)</p>
+      <p class="subtitle">Set your goals. Achive them. Pat yourself on the back.</p>
+      <p class="to-author">
+        Made by
+        <a href="https://github.com/totocorvidoni">@TotoCorvidoni</a>.
+      </p>
     </header>
     <div class="go-full">
       <router-link :to="{ name: 'full' }" class="button link">Full View</router-link>
@@ -49,10 +53,10 @@ export default {
   header {
     grid-row: 1 / -1;
     grid-column: 1;
-    align-self: center;
     display: flex;
     flex-flow: column;
     text-align: center;
+    margin-top: 3rem;
   }
 
   .logo {
@@ -76,7 +80,18 @@ export default {
     font-weight: 300;
     font-style: italic;
     margin-top: -1rem;
-    margin-bottom: 2rem;
+  }
+  .to-author {
+    margin: 1em 0 2em;
+    font-size: 1.2em;
+
+    & > a {
+      color: $color3;
+
+      &:hover {
+        filter: brightness(1.2);
+      }
+    }
   }
 
   #project {
