@@ -1,115 +1,33 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import vuexPersist from "vuex-persist";
 import uuid from "uuid/v4";
 import { pick, isEmpty } from "lodash";
 
 Vue.use(Vuex);
 
+const vuexLocal = new vuexPersist({
+  key: "todo-store",
+  storage: window.localStorage,
+  reducer: state => ({
+    projects: state.projects,
+    todos: state.todos
+  })
+});
+
 export default new Vuex.Store({
+  plugins: [vuexLocal.plugin],
   state: {
     projects: {
       "0": {
         id: "0",
         name: "Quick Todos",
-        todos: [1, 2, 4]
-      },
-
-      1: {
-        id: 1,
-        name: "A Project whose name is extremely long so I can test ellipsis",
-        todos: [1, 2, 4]
-      },
-      2: {
-        id: 2,
-        name: "Of Dog and Men",
-        todos: [1, 3, 4]
-      },
-      3: {
-        id: 3,
-        name: "Canis Lupus",
-        todos: [1, 2, 4]
-      },
-      4: {
-        id: 4,
-        name: "Howling at the Moon",
-        todos: [1, 2, 4]
-      },
-      5: {
-        id: 5,
-        name: "Gipsy Curses",
-        todos: [1, 2, 4]
+        todos: []
       }
     },
-    todos: {
-      1: {
-        id: 1,
-        title: "feed the dog",
-        description:
-          "Newton is a friendly dog who likes to eat. Feeding him is my job.",
-        dueDate: new Date(2019, 4, 30, 16, 0),
-        notes: [
-          "We are out of food.",
-          "The store was closed.",
-          "Must research if cookie based diets are healthy for dogs.",
-          "Day 15: we are running out of cookies.",
-          "Day 16: Newton has ran out of patience..."
-        ],
-        priority: 3,
-        completed: false
-      },
-      2: {
-        id: 2,
-        title: "play with the dog",
-        description:
-          "Newton is a friendly dog who likes to eat. Feeding him is my job.",
-        dueDate: new Date(2019, 4, 30, 16, 0),
-        notes: [
-          "We are out of food.",
-          "The store was closed.",
-          "Must research if cookie based diets are healthy for dogs.",
-          "Day 15: we are running out of cookies.",
-          "Day 16: Newton has ran out of patience..."
-        ],
-        priority: 3,
-        completed: false
-      },
-      3: {
-        id: 3,
-        title: "eat with the dog",
-        description:
-          "Newton is a friendly dog who likes to eat. Feeding him is my job.",
-        dueDate: new Date(2019, 4, 30, 16, 0),
-        notes: [
-          "We are out of food.",
-          "The store was closed.",
-          "Must research if cookie based diets are healthy for dogs.",
-          "Day 15: we are running out of cookies.",
-          "Day 16: Newton has ran out of patience..."
-        ],
-        priority: 3,
-        completed: false
-      },
-      4: {
-        id: 4,
-        title: "be the dog",
-        description:
-          "Newton is a friendly dog who likes to eat. Feeding him is my job.",
-        dueDate: new Date(2019, 4, 30, 16, 0),
-        notes: [
-          "We are out of food.",
-          "The store was closed.",
-          "Must research if cookie based diets are healthy for dogs.",
-          "Day 15: we are running out of cookies.",
-          "Day 16: Newton has ran out of patience..."
-        ],
-        priority: 3,
-        completed: false
-      }
-    },
+    todos: {},
     activeProjectId: null,
-    activeTodoId: null,
-    mostRecentProject: null,
-    mostRecentTodo: null
+    activeTodoId: null
   },
   mutations: {
     addProject(state, project) {
