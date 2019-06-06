@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: "<todo-vue>",
   transpileDependencies: [/\bvue-awesome\b/],
   css: {
     loaderOptions: {
