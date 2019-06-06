@@ -7,13 +7,13 @@
       <h1 class="main-title">THOU SHALL DO</h1>
       <p class="subtitle">I needed a larger title (I also needed a subtitle)</p>
     </header>
+    <div class="go-full">
+      <router-link :to="{ name: 'full' }" class="button link">Full View</router-link>
+    </div>
     <main id="project">
       <h2 class="title">{{ project.name }}</h2>
       <quick-todos/>
     </main>
-    <div class="go-full">
-      <router-link :to="{ name: 'full' }" class="button link">Full View</router-link>
-    </div>
   </div>
 </template>
 
@@ -39,17 +39,16 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr auto;
-  grid-column-gap: 2rem;
-  grid-row-gap: 1rem;
-  justify-items: center;
+  grid-column-gap: 5rem;
+  grid-row-gap: 2rem;
   color: $color5;
-  padding: 2rem;
-  min-height: 100%;
-  width: 100%;
+  padding: 5rem 3rem;
+  min-height: 750px;
+  max-height: 100%;
 
   header {
     grid-row: 1 / -1;
-    grid-column: 2 / -1;
+    grid-column: 1;
     align-self: center;
     display: flex;
     flex-flow: column;
@@ -70,7 +69,6 @@ export default {
 
   .main-title {
     font-size: 2.5rem;
-    // margin: 0;
   }
 
   .subtitle {
@@ -82,6 +80,8 @@ export default {
   }
 
   #project {
+    grid-row: span 2;
+    justify-self: start;
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: auto 1fr;
@@ -89,7 +89,8 @@ export default {
     border-top-left-radius: $regular-radius;
     border-top-right-radius: $regular-radius;
     transition: $regular-ease;
-    width: 90%;
+    width: 70%;
+    overflow-y: auto;
 
     * {
       transition: $regular-ease;
@@ -108,7 +109,9 @@ export default {
   }
 
   .go-full {
-    // grid-column: 2 / 3;
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    justify-self: center;
     background: $color1-dark;
     border-radius: $regular-radius;
     padding: 1em;
@@ -130,6 +133,7 @@ export default {
   #quick-view {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
+    max-height: none;
 
     header {
       grid-row: 1;
@@ -137,7 +141,12 @@ export default {
     }
 
     #project {
+      grid-row: 2;
       width: 100%;
+    }
+
+    .go-full {
+      grid-row: 3;
     }
   }
 }

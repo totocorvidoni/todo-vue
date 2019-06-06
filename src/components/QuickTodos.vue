@@ -87,8 +87,6 @@ export default {
 .quick-todos {
   background: $color5;
   color: $color1;
-  max-height: 100%;
-  overflow-y: auto;
 
   ul {
     list-style-type: none;
