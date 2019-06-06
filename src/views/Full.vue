@@ -136,7 +136,8 @@ export default {
     background: $color3;
     padding: 0.5em;
     border: 2px solid $color5;
-    border-radius: $little-radius;
+    border-top-right-radius: $little-radius;
+    border-bottom-right-radius: $little-radius;
     border-left: none;
     z-index: 100;
 
