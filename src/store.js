@@ -185,16 +185,12 @@ export default new Vuex.Store({
       todo.notes.splice(todo.notes.indexOf(payload.note), 1);
     },
 
-    completeTodo(state, payload) {
-      state.todos[payload.todoId].completed = true;
+    finishTodo(state, payload) {
+      state.todos[payload.todoId].completed = payload.date;
     },
 
-    incompleteTodo(state, payload) {
-      state.todos[payload.todoId].completed = false;
-    },
-
-    toggleTodo(state, id) {
-      state.todos[id].completed = !state.todos[id].completed;
+    notFinishTodo(state, todoId) {
+      state.todos[todoId].completed = null;
     },
 
     setMostRecentProject(state, id) {
@@ -254,6 +250,14 @@ export default new Vuex.Store({
     setActiveProject({ commit }, id) {
       commit("setActiveProject", id);
       commit("removeActiveTodo");
+    },
+
+    toggleTodo({ commit, state }, id) {
+      if (state.todos[id].completed) {
+        commit("notFinishTodo", id);
+      } else {
+        commit("finishTodo", { todoId: id, date: new Date() });
+      }
     },
 
     resetView({ commit }) {

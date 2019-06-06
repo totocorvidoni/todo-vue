@@ -101,7 +101,7 @@ export default {
     },
 
     onCompletedClick() {
-      this.$store.commit("toggleTodo", this.id);
+      this.$store.dispatch("toggleTodo", this.id);
     },
 
     onPriorityClick() {

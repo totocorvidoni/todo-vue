@@ -11,10 +11,13 @@
     <p class="description">{{ activeTodo.description }}</p>
     <transition name="fade">
       <div class="due-date-wrapper">
-        <div class="info-wrapper" :class="howSoon(date)">
-          <h2 v-if="isDue(date)">Has been due for {{ timeLeft(date) }}</h2>
+        <div class="info-wrapper" :class="statusClass">
+          <!-- TODO - refactor, too much logic on template -->
+          <h2 v-if="activeTodo.completed">Completed {{ timeLeft(activeTodo.completed) }} ago</h2>
+          <h2 v-else-if="isDue(date)">Has been due for {{ timeLeft(date) }}</h2>
           <h2 v-else>Due in {{ timeLeft(date) }}</h2>
-          <p>{{ longDate(date) }}</p>
+          <p v-if="activeTodo.completed">{{ longDate(activeTodo.completed) }}</p>
+          <p v-else>{{ longDate(date) }}</p>
         </div>
         <div v-if="!pickingDate" class="date-actions">
           <button class="button complete" @click="onCompleteClick">{{ completeButtonText }}</button>
@@ -72,7 +75,7 @@ export default {
 
   methods: {
     onCompleteClick() {
-      this.$store.commit("toggleTodo", this.activeTodo.id);
+      this.$store.dispatch("toggleTodo", this.activeTodo.id);
     },
 
     onNewDateConfirm() {
@@ -86,6 +89,7 @@ export default {
 
     onNewNote(e) {
       if (this.newNote !== "") {
+        b;
         this.$store.commit("addTodoNote", {
           todoId: this.activeTodo.id,
           note: this.newNote
@@ -107,7 +111,15 @@ export default {
     },
 
     completeButtonText() {
-      return this.activeTodo.completed ? "Unfinish todo" : "Finish Todo!";
+      return this.activeTodo.completed ? "Uncomplete todo" : "Complete Todo!";
+    },
+
+    statusClass() {
+      if (this.activeTodo.completed) {
+        return "done";
+      } else {
+        return this.howSoon(this.date);
+      }
     }
   }
 };
@@ -207,6 +219,10 @@ export default {
 
     .due {
       background: $very-high-priority;
+    }
+
+    .done {
+      background: $color-done;
     }
   }
 

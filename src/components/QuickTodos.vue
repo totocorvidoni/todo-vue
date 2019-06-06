@@ -73,7 +73,7 @@ export default {
       this.$store.dispatch("removeTodo", id);
     },
     onTodoClick(id) {
-      this.$store.commit("toggleTodo", id);
+      this.$store.dispatch("toggleTodo", id);
     }
   },
 
