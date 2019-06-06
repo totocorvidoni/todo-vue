@@ -3,6 +3,7 @@
     <project-list :class="{ 'visible-flex': showingMenu }" @panel-closing="showingMenu = false"/>
     <button class="project-list-toggler button" @click="showingMenu = true" v-if="!showingMenu">
       <img src="@/assets/bars-purple.png" alt>
+      <span v-if="!activeProject" class="description">Open Projects</span>
     </button>
     <project-details v-if="activeProject"/>
     <div v-else class="above-left nothing-wrapper projects">
@@ -144,6 +145,12 @@ export default {
     img {
       width: 12px;
       height: auto;
+    }
+
+    .description {
+      color: $color1;
+      font-weight: 700;
+      margin-left: 0.5em;
     }
   }
 
