@@ -232,7 +232,6 @@ export default new Vuex.Store({
     },
 
     removeTodo({ commit, state }, id) {
-      // TODO - should not remove todo with id "0";
       commit("removeTodo", id);
       commit("removeTodoFromProject", id);
       if (state.activeTodoId == id) {
@@ -241,10 +240,16 @@ export default new Vuex.Store({
     },
 
     removeProject({ commit, state }, id) {
-      commit("removeProject", id);
-      // TODO - When project is removed its todos should be removed too.
-      if (state.activeProjectId == id) {
-        commit("removeActiveProject", null);
+      if (id == "0") {
+        alert("Sorry, the default project cannot be removed");
+      } else {
+        state.projects[id].todos.forEach(todoId => {
+          commit("removeTodo", todoId);
+        });
+        commit("removeProject", id);
+        if (state.activeProjectId == id) {
+          commit("removeActiveProject");
+        }
       }
     },
 
