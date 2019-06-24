@@ -46,9 +46,8 @@ export default {
   grid-column-gap: 5rem;
   grid-row-gap: 2rem;
   color: $color5;
-  padding: 5rem 3rem;
-  min-height: 750px;
-  max-height: 100%;
+  padding: 3rem;
+  min-height: 700px;
 
   header {
     grid-row: 1 / -1;
