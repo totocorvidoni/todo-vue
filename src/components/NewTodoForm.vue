@@ -44,6 +44,7 @@ export default {
 
   methods: {
     onFormSubmit() {
+      // TODO - make the created TODO active so you automatically see the info.
       this.$store.dispatch("addTodo", {
         title: this.newTodoTitle,
         description: this.newTodoDescription,
