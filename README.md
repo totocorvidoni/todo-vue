@@ -1,34 +1,27 @@
-# todo-vue
+# Thou shall do
 
-## Project setup
-```
-npm install
-```
+![Set your goal. Achive Them. Pat yoruself on the back.](https://totocorvidoni.github.io/todo-vue/cover.png)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Made in response of an [assignment](https://www.theodinproject.com/courses/javascript/lessons/todo-list) for [The Odin Project](https://www.theodinproject.com/).
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Switch easily between the app's two modes. A simplified view which manage todos quickly and a full view mode that features in-depth todo management.
 
-### Run your tests
-```
-npm run test
-```
+## Check out the [Live App](https://totocorvidoni.github.io/todo-vue/)
 
-### Lints and fixes files
-```
-npm run lint
-```
+### Features
 
-### Run your unit tests
-```
-npm run test:unit
-```
+- Projects
+- Due Dates
+- Notes
+- Priorities
+- Local Auto Save
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+I hope you enjoy it!
+
+## Support
+
+Did you find an issue? Have a suggestion maybe? You can contact me at [totocorvidoni@gmail.com](mailto:totocorvidoni@gmail.com).
+
+## License
+
+The project is licensed under the GNU GPLv3 license.
