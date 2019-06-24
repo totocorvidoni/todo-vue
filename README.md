@@ -1,6 +1,7 @@
-# Thou shall do
 
 ![Set your goal. Achieve Them. Pat yourself on the back.](/cover.png)
+
+# Thou shall do
 
 Made in response of an [assignment](https://www.theodinproject.com/courses/javascript/lessons/todo-list) for [The Odin Project](https://www.theodinproject.com/).
 
